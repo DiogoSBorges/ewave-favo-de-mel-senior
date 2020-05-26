@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  db:
+    image: favo-de-mel-sqlserver
+    build:
+      context: .
+      dockerfile: ./Database/Dockerfile
+    ports:
+      - "1433:1433"
