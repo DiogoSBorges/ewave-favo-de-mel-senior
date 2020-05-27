@@ -6,15 +6,15 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>.\FavoDeMel.Web.Api.xml</DocumentationFile>
-    <OutputPath>.</OutputPath>
+    <DocumentationFile>bin\FavoDeMel.Web.Api.xml</DocumentationFile>
+    <OutputPath></OutputPath>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>.\FavoDeMel.Web.Api.xml</DocumentationFile>
+    <DocumentationFile>bin\FavoDeMel.Web.Api.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
-    <OutputPath>.</OutputPath>
+    <OutputPath></OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
