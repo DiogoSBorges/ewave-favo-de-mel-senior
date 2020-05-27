@@ -1,4 +1,5 @@
 ﻿using FavoDeMel.Api.Hubs;
+using FavoDeMel.Api.Setup;
 using FavoDeMel.Application.Modules;
 using FavoDeMel.Application.Providers;
 using FavoDeMel.Domain.Commands;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Linq;
 
 namespace FavoDeMel.Api
@@ -44,7 +46,7 @@ namespace FavoDeMel.Api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.ContextModuleRegister(Configuration);
-            services.CommandQueryModuleRegister(typeof(ICommandHandler<>));
+            services.CommandModuleRegister();
                         
 
             var repositories = typeof(FooRepository).Assembly.GetTypes()
@@ -59,7 +61,7 @@ namespace FavoDeMel.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

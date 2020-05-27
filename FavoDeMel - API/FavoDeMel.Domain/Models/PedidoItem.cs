@@ -1,6 +1,8 @@
-﻿namespace FavoDeMel.Domain.Models
+﻿using FavoDeMel.Infrastructure.Data;
+
+namespace FavoDeMel.Domain.Models
 {
-    public class PedidoItem
+    public class PedidoItem : IEntity
     {
         public int Id { get; set; }
 

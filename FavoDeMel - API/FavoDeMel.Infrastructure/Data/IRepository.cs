@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FavoDeMel.Infrastructure.Data
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : IEntity
     {      
         Task<T> GetByAsync(int id);
         Task AddAsync(T entity);

@@ -1,6 +1,8 @@
-﻿namespace FavoDeMel.Domain.Models
+﻿using FavoDeMel.Infrastructure.Data;
+
+namespace FavoDeMel.Domain.Models
 {
-    public class Comanda
+    public class Comanda : IEntity
     {
         public int Id { get; set; }
         public int Numero { get; set; }

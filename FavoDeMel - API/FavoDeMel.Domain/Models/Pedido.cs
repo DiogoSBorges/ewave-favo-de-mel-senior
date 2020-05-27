@@ -1,9 +1,10 @@
-﻿using System;
+﻿using FavoDeMel.Infrastructure.Data;
+using System;
 using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Models
 {
-    public class Pedido
+    public class Pedido : IEntity
     {
         public int Id { get; set; }
         public string Observacao { get; set; }

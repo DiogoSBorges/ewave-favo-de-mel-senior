@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FavoDeMel.Commands\FavoDeMel.Commands.csproj" />
     <ProjectReference Include="..\FavoDeMel.Domain\FavoDeMel.Domain.csproj" />
     <ProjectReference Include="..\FavoDeMel.Infrastructure.EF\FavoDeMel.Infrastructure.EF.csproj" />
     <ProjectReference Include="..\FavoDeMel.Infrastructure\FavoDeMel.Infrastructure.csproj" />

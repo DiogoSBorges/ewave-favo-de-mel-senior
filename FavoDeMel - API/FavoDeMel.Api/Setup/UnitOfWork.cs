@@ -1,8 +1,9 @@
 ﻿using FavoDeMel.Infrastructure.Data;
+using FavoDeMel.Infrastructure.EF.Data;
 using System;
 using System.Threading.Tasks;
 
-namespace FavoDeMel.Infrastructure.EF.Data
+namespace FavoDeMel.Api.Setup
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -16,7 +17,7 @@ namespace FavoDeMel.Infrastructure.EF.Data
         public async Task CommitAsync()
         {
             try
-            {
+            {                
                 await DataContext.SaveChangesAsync().ConfigureAwait(false);
             }
             catch (Exception e)

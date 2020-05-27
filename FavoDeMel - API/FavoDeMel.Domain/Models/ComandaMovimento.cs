@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FavoDeMel.Infrastructure.Data;
+using System;
 
 namespace FavoDeMel.Domain.Models
 {
-    public class ComandaMovimento
+    public class ComandaMovimento : IEntity
     {
         public int Id { get; set; }
         public DateTime DataAbertura { get; set; }

@@ -38,8 +38,7 @@ namespace FavoDeMel.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<string>> Get()
         {
-
-
+            //_hub.Clients.All.
             /*await _commandDispatcher.HandleAsync(new AdicionarTesteCommand("TESTE"));
 
             

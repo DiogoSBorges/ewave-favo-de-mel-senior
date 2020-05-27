@@ -1,13 +1,13 @@
 ﻿using FavoDeMel.Infrastructure.Data;
+using FavoDeMel.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FavoDeMel.Infrastructure.EF.Data
 {
-    public abstract class Repository<T> : IRepository<T> where T : class
+    public abstract class Repository<T> : IRepository<T> where T : class, IEntity
     {
         protected AppDataContext DataContext { get; }
 
@@ -23,17 +23,26 @@ namespace FavoDeMel.Infrastructure.EF.Data
 
         public Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            DataContext.Set<T>().Remove(entity);
+            return Task.CompletedTask;
         }
 
-        public Task<T> GetByAsync(int id)
+        public async Task<T> GetByAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = DataContext.Set<T>().Local.SingleOrDefault(x => x.Id == id);
+
+            if (entity.IsNull())
+            {
+                entity = await DataContext.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
+            }
+
+            return entity;
         }
 
         public Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            DataContext.Entry<T>(entity).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
     }
 }

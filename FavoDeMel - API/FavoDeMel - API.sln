@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1145
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Api", "FavoDeMel.Api\FavoDeMel.Api.csproj", "{CCBB25A0-55D5-4091-B3BD-BC28CDA62D8D}"
 EndProject
@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Application", "Fa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infrastructure", "FavoDeMel.Infrastructure\FavoDeMel.Infrastructure.csproj", "{CF202905-04E5-4709-AF27-287114D01C83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Infrastructure.EF", "FavoDeMel.Infrastructure.EF\FavoDeMel.Infrastructure.EF.csproj", "{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infrastructure.EF", "FavoDeMel.Infrastructure.EF\FavoDeMel.Infrastructure.EF.csproj", "{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Commands", "FavoDeMel.Commands\FavoDeMel.Commands.csproj", "{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
