@@ -1,4 +1,5 @@
 ﻿using FavoDeMel.Api.Filter;
+using FavoDeMel.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,11 @@ namespace FavoDeMel.Api.Controllers
     [ExcepionActionFilter]
     public class BaseController : ControllerBase
     {
+        protected readonly IUnitOfWork UnitOfWork;
+
+        public BaseController(IUnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+        }
     }
 }

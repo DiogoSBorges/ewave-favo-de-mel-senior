@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Domain", "FavoDeM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Application", "FavoDeMel.Application\FavoDeMel.Application.csproj", "{DD306120-F28A-4D30-B0C4-CE6AD262A3AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Infrastructure", "FavoDeMel.Infrastructure\FavoDeMel.Infrastructure.csproj", "{CF202905-04E5-4709-AF27-287114D01C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infrastructure", "FavoDeMel.Infrastructure\FavoDeMel.Infrastructure.csproj", "{CF202905-04E5-4709-AF27-287114D01C83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Infrastructure.EF", "FavoDeMel.Infrastructure.EF\FavoDeMel.Infrastructure.EF.csproj", "{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CF202905-04E5-4709-AF27-287114D01C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF202905-04E5-4709-AF27-287114D01C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF202905-04E5-4709-AF27-287114D01C83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

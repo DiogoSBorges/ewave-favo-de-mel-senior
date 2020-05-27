@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using FavoDeMel.Api.Hubs;
 using FavoDeMel.Application.Commands;
+using FavoDeMel.Domain.Exceptions;
+using FavoDeMel.Domain.Models;
+using FavoDeMel.Domain.Repositories;
+using FavoDeMel.Infrastructure.Data;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -18,10 +22,16 @@ namespace FavoDeMel.Api.Controllers
 
         private readonly ICommandDispatcher _commandDispatcher;
 
-        public ValuesController(ICommandDispatcher commandDispatcher, IHubContext<FavoDeMelHub> hub)
+        private readonly ITesteRepository _testeRepository;
+
+        public ValuesController(IUnitOfWork unitOfWork, 
+            ICommandDispatcher commandDispatcher, 
+            IHubContext<FavoDeMelHub> hub,
+            ITesteRepository testeRepository ) :base(unitOfWork)
         {
             _commandDispatcher = commandDispatcher;
             _hub = hub;
+            _testeRepository = testeRepository;
         }
 
         // GET api/values
@@ -32,7 +42,27 @@ namespace FavoDeMel.Api.Controllers
 
             await _commandDispatcher.HandleAsync(new AdicionarTesteCommand("TESTE"));
 
-            _hub.Clients.All.SendAsync("EnviarAlgo", "teste");
+            var teste = new ComandaSituacao
+            {
+                Id = 4,
+                Nome = "Vuala4"
+            };
+
+            var teste2 = new ComandaSituacao
+            {
+                Id = 5,
+                Nome = "Vuala5"
+            };
+
+            await _testeRepository.AddAsync(teste);
+
+            throw new TesteException();
+
+            await _testeRepository.AddAsync(teste2);
+
+            await UnitOfWork.CommitAsync();
+
+            _hub.Clients.All.SendAsync("AlgoEnviado", "teste");
             return new string[] { "value1", "value2" };
         }
 
