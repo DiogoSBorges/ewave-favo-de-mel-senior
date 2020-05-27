@@ -11,7 +11,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace FavoDeMel.Api
 {
@@ -38,6 +42,16 @@ namespace FavoDeMel.Api
                         .AllowCredentials());      
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Favo De Mel - API", Version = "v1" });
+
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
             services.AddSignalR();
             services.AddOptions();
             services.AddMvc(options => options.EnableEndpointRouting = false);
@@ -56,8 +70,6 @@ namespace FavoDeMel.Api
             {
                 services.AddScoped(repository.GetInterfaces()[1], repository);
             }
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,16 +80,14 @@ namespace FavoDeMel.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseRouting();
             app.UseCors("CorsPolicy");
-
-            /*app.UseCors(builder =>
-            {
-                builder.AllowAnyOrigin();
-                builder.AllowAnyHeader();
-                builder.AllowAnyMethod();
-                builder.AllowCredentials();
-            });*/
 
             app.UseEndpoints(endpoint =>
             {

@@ -1,5 +1,5 @@
 ﻿using FavoDeMel.Infrastructure.Data;
-using FavoDeMel.Infrastructure.Exceptions;
+using FavoDeMel.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

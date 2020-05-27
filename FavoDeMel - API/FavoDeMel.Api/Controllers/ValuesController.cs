@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FavoDeMel.Api.Hubs;
-using FavoDeMel.Application.Commands;
-using FavoDeMel.Domain.Exceptions;
-using FavoDeMel.Domain.Models;
+﻿using FavoDeMel.Api.Hubs;
 using FavoDeMel.Domain.Repositories;
 using FavoDeMel.Infrastructure.Data;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FavoDeMel.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/values")]
     [ApiController]
     public class ValuesController : BaseController
     {
@@ -24,17 +18,21 @@ namespace FavoDeMel.Api.Controllers
 
         private readonly ITesteRepository _testeRepository;
 
-        public ValuesController(IUnitOfWork unitOfWork, 
-            ICommandDispatcher commandDispatcher, 
+        public ValuesController(IUnitOfWork unitOfWork,
+            ICommandDispatcher commandDispatcher,
             IHubContext<FavoDeMelHub> hub,
-            ITesteRepository testeRepository ) :base(unitOfWork)
+            ITesteRepository testeRepository) : base(unitOfWork)
         {
             _commandDispatcher = commandDispatcher;
             _hub = hub;
             _testeRepository = testeRepository;
         }
 
-        // GET api/values
+
+        /// <summary>
+        /// Faz algo
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<string>> Get()
         {
