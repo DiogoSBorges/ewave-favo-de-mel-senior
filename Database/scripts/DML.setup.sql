@@ -46,7 +46,7 @@ INSERT INTO [dbo].[ProdutoTipo] ([Id], [Nome]) VALUES
 ( 9, 'Refrigerante')
 GO
 
-INSERT INTO [dbo].[Produto]([Nome], [Observacao], [TempoPreparo],[Valor], [TipoId]) VALUES
+INSERT INTO [dbo].[Produto]([Nome], [Descricao], [TempoPreparo],[Valor], [TipoId]) VALUES
 ('Picanha Na Chapa', null, 20, 39.90 , 1),
 ('Parmegiana de Filé Bovino', 'Acompanha Arroz e BataFrita', 30, 35.90 , 2),
 ('Espaguete à carbonara', null, 30, 25.90 , 3),

@@ -40,29 +40,25 @@ namespace FavoDeMel.Api.Controllers
         {
 
 
-            await _commandDispatcher.HandleAsync(new AdicionarTesteCommand("TESTE"));
+            /*await _commandDispatcher.HandleAsync(new AdicionarTesteCommand("TESTE"));
 
-            var teste = new ComandaSituacao
-            {
-                Id = 4,
-                Nome = "Vuala4"
-            };
+            
+         
 
             var teste2 = new ComandaSituacao
             {
-                Id = 5,
-                Nome = "Vuala5"
+                Id = 6,
+                Nome = "Vuala6"
             };
 
-            await _testeRepository.AddAsync(teste);
-
-            throw new TesteException();
-
             await _testeRepository.AddAsync(teste2);
+
+         
 
             await UnitOfWork.CommitAsync();
 
             _hub.Clients.All.SendAsync("AlgoEnviado", "teste");
+            */
             return new string[] { "value1", "value2" };
         }
 

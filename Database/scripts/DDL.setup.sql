@@ -48,7 +48,7 @@ CREATE TABLE [dbo].[Produto]
 (
 	[Id] INT IDENTITY(1,1) NOT NULL,
 	[Nome] VARCHAR(150) NOT NULl,	
-	[Observacao] VARCHAR (255) NULL,
+	[Descricao] VARCHAR (255) NULL,
 	[TempoPreparo] INT NULL,
 	[Valor]	DECIMAL(19,2) NOT NULL,
 	[TipoId] INT NOT NULL

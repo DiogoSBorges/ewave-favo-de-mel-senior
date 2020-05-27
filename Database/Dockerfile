@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/mssql/server
 
-
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=@FavodeMel_2020
 ENV DATABASE=FavoDeMel

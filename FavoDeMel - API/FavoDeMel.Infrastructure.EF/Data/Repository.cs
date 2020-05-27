@@ -9,9 +9,9 @@ namespace FavoDeMel.Infrastructure.EF.Data
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        public AppDataContext DataContext { get; }
-        
-        public Repository(AppDataContext context)
+        protected AppDataContext DataContext { get; }
+
+        protected Repository(AppDataContext context)
         {
             DataContext = context;
         }

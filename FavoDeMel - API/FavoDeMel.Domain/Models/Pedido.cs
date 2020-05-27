@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Models
 {
@@ -13,5 +14,7 @@ namespace FavoDeMel.Domain.Models
 
         public int SituacaoId { get; set; }
         public virtual PedidoSituacao Situacao { get; set; }
+
+        public virtual ICollection<PedidoItem> Items { get; set; } = new List<PedidoItem>();
     }
 }

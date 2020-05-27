@@ -6,7 +6,7 @@ namespace FavoDeMel.Infrastructure.EF.Repositories
 {
     public class TesteRepository : Repository<ComandaSituacao>, ITesteRepository
     {
-        public TesteRepository(AppDataContext dataContext) : base(dataContext)
+        public TesteRepository (AppDataContext dataContext):base(dataContext)
         {
 
         }
