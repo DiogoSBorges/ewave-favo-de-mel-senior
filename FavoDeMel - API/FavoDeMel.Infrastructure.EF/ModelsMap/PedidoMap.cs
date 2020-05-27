@@ -30,7 +30,7 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
                 .HasPrincipalKey<PedidoSituacao>(x => x.Id)
                 .HasForeignKey<Pedido>(x => x.SituacaoId);   
 
-            builder.HasOne(x => x.Situacao)
+            builder.HasOne(x => x.Movimento)
                 .WithOne()
                 .HasPrincipalKey<ComandaMovimento>(x => x.Id)
                 .HasForeignKey<Pedido>(x => x.ComandaMovimentoId);    

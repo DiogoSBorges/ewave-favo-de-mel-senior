@@ -40,7 +40,7 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
 
             builder.HasOne(x => x.Situacao)
                .WithOne()
-               .HasPrincipalKey<PedidoSituacao>(x => x.Id)
+               .HasPrincipalKey<PedidoItemSituacao>(x => x.Id)
                .HasForeignKey<PedidoItem>(x => x.SituacaoId);
         }
     }

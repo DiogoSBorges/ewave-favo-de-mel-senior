@@ -1,4 +1,6 @@
 ﻿using FavoDeMel.Domain.Commands;
+using FavoDeMel.Infrastructure.Extensions;
+using System;
 
 namespace FavoDeMel.Commands.Comanda
 {
@@ -8,6 +10,8 @@ namespace FavoDeMel.Commands.Comanda
 
         public AbrirComandaCommand(int id)
         {
+            if (id.IsLessThanZero()) throw new ArgumentNullException(nameof(id));
+
             Id = id;
         }
 

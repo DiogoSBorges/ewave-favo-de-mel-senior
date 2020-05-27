@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Api", "FavoDeMel.Api\FavoDeMel.Api.csproj", "{CCBB25A0-55D5-4091-B3BD-BC28CDA62D8D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Domain", "FavoDeMel.Domain\FavoDeMel.Domain.csproj", "{CE5C7B07-CFBC-461D-BC67-BCE85CE7F94B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Application", "FavoDeMel.Application\FavoDeMel.Application.csproj", "{DD306120-F28A-4D30-B0C4-CE6AD262A3AB}"
@@ -13,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infrastructure.EF", "FavoDeMel.Infrastructure.EF\FavoDeMel.Infrastructure.EF.csproj", "{36DC5ED3-46C3-4094-8C77-27656CD5BA5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Commands", "FavoDeMel.Commands\FavoDeMel.Commands.csproj", "{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Commands", "FavoDeMel.Commands\FavoDeMel.Commands.csproj", "{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Web.Api", "FavoDeMel.Web.Api\FavoDeMel.Web.Api.csproj", "{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CCBB25A0-55D5-4091-B3BD-BC28CDA62D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCBB25A0-55D5-4091-B3BD-BC28CDA62D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCBB25A0-55D5-4091-B3BD-BC28CDA62D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCBB25A0-55D5-4091-B3BD-BC28CDA62D8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE5C7B07-CFBC-461D-BC67-BCE85CE7F94B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE5C7B07-CFBC-461D-BC67-BCE85CE7F94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5C7B07-CFBC-461D-BC67-BCE85CE7F94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CE1196-6412-42C4-AE60-3FB9BC86A9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

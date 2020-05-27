@@ -1,4 +1,5 @@
 ﻿using FavoDeMel.Infrastructure.Data;
+using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Models
 {
@@ -9,5 +10,8 @@ namespace FavoDeMel.Domain.Models
 
         public int SituacaoId { get; set; }
         public virtual ComandaSituacao Situacao { get; set; }
+
+        public virtual ICollection<ComandaMovimento> Movimentos { get; set; } = new HashSet<ComandaMovimento>();
+
     }
 }
