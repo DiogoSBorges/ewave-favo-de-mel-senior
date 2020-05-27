@@ -26,9 +26,9 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
                .HasColumnName("ComandaId");
 
             builder.HasOne(x => x.Comanda)
-                .WithOne()
-                .HasPrincipalKey<Comanda>(x => x.Id)
-                .HasForeignKey<ComandaMovimento>(x => x.ComandaId);                
+                .WithMany(x => x.Movimentos)
+                .HasPrincipalKey(x => x.Id)
+                .HasForeignKey(x => x.ComandaId);
         }
     }
 }

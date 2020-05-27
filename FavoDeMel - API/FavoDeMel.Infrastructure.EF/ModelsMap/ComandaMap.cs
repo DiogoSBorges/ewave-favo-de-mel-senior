@@ -25,13 +25,7 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
             builder.HasOne(x => x.Situacao)
                 .WithOne()
                 .HasPrincipalKey<ComandaSituacao>(x => x.Id)
-                .HasForeignKey<Comanda>(x => x.SituacaoId);
-
-            builder
-               .HasMany(e => e.Movimentos)
-               .WithOne(e => e.Comanda)
-               .HasPrincipalKey(e => e.Id)
-               .HasForeignKey(e => e.ComandaId);
+                .HasForeignKey<Comanda>(x => x.SituacaoId);         
         }
     }
 }

@@ -21,10 +21,12 @@ namespace FavoDeMel.Web.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("{id:int}/abrir")]
-        public async Task<IActionResult> DevolverAsync(int id)
+        public async Task<IActionResult> AbrirAsync(int id)
         {
             var command = new AbrirComandaCommand(id);
-            await CommandDispatcher.HandleAsync(command);            
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
             
             return Ok();
         }
