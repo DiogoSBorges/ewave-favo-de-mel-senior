@@ -28,11 +28,6 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
             builder.Property(x => x.PrioridadeId)
                 .HasColumnName("PrioridadeId");
 
-            builder.HasOne(x => x.PedidoItem)
-                .WithOne()
-                .HasPrincipalKey<PedidoItem>(x => x.Id)
-                .HasForeignKey<PedidoItemProducao>(x => x.PedidoItemId);
-
             builder.HasOne(x => x.Prioridade)
                .WithOne()
                .HasPrincipalKey<PedidoItemProducaoPrioridade>(x => x.Id)

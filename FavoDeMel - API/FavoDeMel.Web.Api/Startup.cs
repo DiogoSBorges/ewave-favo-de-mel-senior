@@ -1,11 +1,8 @@
 ﻿using FavoDeMel.Api.Hubs;
 using FavoDeMel.Api.Setup;
 using FavoDeMel.Application.Modules;
-using FavoDeMel.Application.Providers;
-using FavoDeMel.Domain.Commands;
 using FavoDeMel.Infrastructure.Data;
-using FavoDeMel.Infrastructure.EF.Data;
-using FavoDeMel.Infrastructure.EF.Repositories;
+using FavoDeMel.Infrastructure.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace FavoDeMel.Api
@@ -35,22 +31,22 @@ namespace FavoDeMel.Api
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
-                
+
                  builder.SetIsOriginAllowed(_ => true)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowCredentials());      
+                        .AllowCredentials());
             });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Favo De Mel - API", Version = "v1" });
 
-               
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-               
+
             });
 
             services.AddSignalR();
@@ -62,7 +58,8 @@ namespace FavoDeMel.Api
 
             services.ContextModuleRegister(Configuration);
             services.CommandModuleRegister();
-            services.RepositoryModuleRegister();    
+            services.RepositoryModuleRegister();
+            services.QueryModuleRegister();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

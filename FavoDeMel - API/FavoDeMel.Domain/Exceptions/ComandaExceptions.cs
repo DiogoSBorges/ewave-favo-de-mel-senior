@@ -10,4 +10,9 @@
         public ComandaJaAbertaException() : base("A Comanda informada já esta aberta.") { }
     }
 
+
+    public class ComandaMovimentoAbertoNaoEncontradoException : AppException
+    {
+        public ComandaMovimentoAbertoNaoEncontradoException() : base("Não foi encontrado movimento aberto da comanda informada.") { }
+    }
 }

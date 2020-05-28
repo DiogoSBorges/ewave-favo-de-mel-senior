@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Commands", "FavoD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Web.Api", "FavoDeMel.Web.Api\FavoDeMel.Web.Api.csproj", "{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Queries", "FavoDeMel.Queries\FavoDeMel.Queries.csproj", "{71EA8BC5-FF6C-4F3B-9229-34EF8FA5B277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49F68FB0-7B96-4F8D-8B5C-94466EDB1A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EA8BC5-FF6C-4F3B-9229-34EF8FA5B277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EA8BC5-FF6C-4F3B-9229-34EF8FA5B277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EA8BC5-FF6C-4F3B-9229-34EF8FA5B277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EA8BC5-FF6C-4F3B-9229-34EF8FA5B277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

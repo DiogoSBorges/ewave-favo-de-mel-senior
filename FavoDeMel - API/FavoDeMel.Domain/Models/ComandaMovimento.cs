@@ -1,5 +1,6 @@
 ﻿using FavoDeMel.Infrastructure.Data;
 using System;
+using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Models
 {
@@ -10,6 +11,6 @@ namespace FavoDeMel.Domain.Models
         public DateTime? DataFechamento { get; set; }
 
         public int ComandaId { get; set; }
-        public virtual Comanda Comanda { get; set; }
+        public virtual Comanda Comanda { get; set; }       
     }
 }

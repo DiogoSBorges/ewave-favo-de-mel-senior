@@ -16,5 +16,7 @@ namespace FavoDeMel.Domain.Models
 
         public int SituacaoId { get; set; }
         public virtual PedidoItemSituacao Situacao { get; set; }
+
+        public virtual PedidoItemProducao Producao { get; set; }
     }
 }

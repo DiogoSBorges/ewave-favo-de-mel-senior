@@ -9,13 +9,13 @@ services:
       ports:
         - "1433:1433"
 
-#    api:
-#      image: favo-de-mel-backend
-#      restart: always
-#      build: ./FavoDeMel - API/
-#      environment:
-#        - ASPNETCORE_ENVIRONMENT=Docker
-#      ports:
-#        - "9000:80"
-#     depends_on:
-#        - db
+    api:
+      image: favo-de-mel-backend
+      restart: always
+      build: ./FavoDeMel - API/
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Docker
+      ports:
+        - "9000:80"
+      depends_on:
+        - db
