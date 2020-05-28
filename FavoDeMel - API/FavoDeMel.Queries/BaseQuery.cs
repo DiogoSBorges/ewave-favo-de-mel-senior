@@ -1,5 +1,7 @@
 ﻿using FavoDeMel.Domain.Queries;
 using FavoDeMel.Infrastructure.Extensions;
+using FavoDeMel.Infrastructure.Providers;
+using Microsoft.Extensions.Options;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,11 +12,11 @@ namespace FavoDeMel.Queries
     {
        protected readonly string ConnectionString;
 
-        public BaseQuery(string connectionString)
+        public BaseQuery(IOptions<DBProvider> provider)
         {
-            if(connectionString.IsNull()) throw new ArgumentNullException(nameof(connectionString));
+            if (provider.Value.FavoDeMel.IsNull()) throw new ArgumentNullException(nameof(provider.Value.FavoDeMel));
 
-            ConnectionString = connectionString;
+            ConnectionString = provider.Value.FavoDeMel;
         }
 
         protected virtual IDbConnection CreateConnection() => new SqlConnection(ConnectionString);

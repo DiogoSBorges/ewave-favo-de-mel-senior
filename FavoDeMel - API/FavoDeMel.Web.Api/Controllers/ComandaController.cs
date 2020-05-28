@@ -1,10 +1,8 @@
 ﻿using FavoDeMel.Api.Controllers;
-using FavoDeMel.Commands;
 using FavoDeMel.Commands.Comanda;
 using FavoDeMel.Domain.Queries;
 using FavoDeMel.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FavoDeMel.Web.Api.Controllers
@@ -19,8 +17,8 @@ namespace FavoDeMel.Web.Api.Controllers
 
 
         public ComandaController
-            (ICommandDispatcher commandDispatcher, 
-            IUnitOfWork unitOfWork, 
+            (ICommandDispatcher commandDispatcher,
+            IUnitOfWork unitOfWork,
             IComandaQuery comandaQuery) : base(commandDispatcher, unitOfWork)
         {
             _comandaQuery = comandaQuery;
@@ -48,9 +46,9 @@ namespace FavoDeMel.Web.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
-        public async Task<IActionResult> ObterTodosAsync()
+        public async Task<IActionResult> ObterTodosAsync([FromQuery] PaginacaoInfo paginacao)
         {
-            var comandas = await _comandaQuery.ObterTodasAsync();
+            var comandas = await _comandaQuery.ObterTodasAsync(paginacao);
 
             return Ok(comandas);
         }
