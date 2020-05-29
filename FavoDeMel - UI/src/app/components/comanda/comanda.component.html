@@ -1,14 +1,15 @@
-<h2>Comandas</h2>
+<div class="text-center">
+    <h2>Comandas</h2>
+    <hr />
+</div>
 
 <div *ngIf="data$ | async as comandas">
     <h1>{{ comandas.isLoading }}</h1>
     <h1>{{ comandas.data.length }}</h1>
     <h1>{{ comandas.errorMessage }}</h1>
 
-
-
-    <div class="row" *ngFor="let comanda of comandas.data;" style="visibility: visible;">
-        <div clas="col-sm-4">
+    <div class="row">
+        <div class="col-sm-4" *ngFor="let comanda of comandas.data;">
             <h1>{{comanda.numero}}</h1>
         </div>
     </div>
