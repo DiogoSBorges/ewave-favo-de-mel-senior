@@ -1,20 +1,20 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 
-import { LayoutComponent } from './layout.component';
+import { SideNavComponent } from './sidenav.component';
 
 describe('LayoutComponent', () => {
-    let component: LayoutComponent;
-    let componentFixture: ComponentFixture<LayoutComponent>;
+    let component: SideNavComponent;
+    let componentFixture: ComponentFixture<SideNavComponent>;
   
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [ LayoutComponent ]
+        declarations: [ SideNavComponent ]
       })
       .compileComponents();
     }));
   
     beforeEach(() => {
-      componentFixture = TestBed.createComponent(LayoutComponent);
+      componentFixture = TestBed.createComponent(SideNavComponent);
       component = componentFixture.componentInstance;
       componentFixture.detectChanges();
     });

@@ -18,7 +18,7 @@ describe('MainComponent', () => {
       componentFixture.detectChanges();
     });
   
-    it('should create component', () => {
+    it('should create the component', () => {
       expect(component).toBeTruthy();
     });
   });
