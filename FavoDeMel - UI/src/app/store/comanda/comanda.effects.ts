@@ -1,0 +1,34 @@
+import { Injectable } from '@angular/core';
+
+import { Store, select } from '@ngrx/store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+
+import { of, Observable } from 'rxjs';
+import { catchError, mergeMap, map, } from 'rxjs/operators';
+
+import * as actions from './comanda.actions';
+
+import {ComandaServices} from '../../services/comanda.service'
+
+
+@Injectable()
+export class ComandaEffect {
+
+    constructor(
+        private actions$: Actions,
+        private service: ComandaServices
+    ) { }
+
+    carregarComandasF$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.carregarComandas),
+            map((params)=> params),
+            mergeMap(({params}) =>  {console.log(params); return this.service.obterTodos(params)}),
+            map((res) => {
+                return actions.carregarComandasSuccess(res);
+            } ),
+            catchError((error) => of(actions.carregarComandasError(error)))
+        )
+    });
+
+}

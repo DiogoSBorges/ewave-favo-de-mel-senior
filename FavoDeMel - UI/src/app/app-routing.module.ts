@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () => import('./components/main/main.module').then((m) => m.MainModule),
   },
+  { 
+    path: 'comandas',
+    loadChildren: () => import('./components/comanda/comanda.module').then((m) => m.ComandaModule),
+  },
 
 ];
 
