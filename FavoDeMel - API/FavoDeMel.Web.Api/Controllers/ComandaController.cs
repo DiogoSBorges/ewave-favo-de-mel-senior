@@ -1,8 +1,10 @@
 ﻿using FavoDeMel.Api.Controllers;
+using FavoDeMel.Api.Hubs;
 using FavoDeMel.Commands.Comanda;
 using FavoDeMel.Domain.Queries;
 using FavoDeMel.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
 namespace FavoDeMel.Web.Api.Controllers
@@ -14,14 +16,17 @@ namespace FavoDeMel.Web.Api.Controllers
     {
 
         private readonly IComandaQuery _comandaQuery;
+        private IHubContext<FavoDeMelHub> _hub;
 
 
         public ComandaController
             (ICommandDispatcher commandDispatcher,
             IUnitOfWork unitOfWork,
-            IComandaQuery comandaQuery) : base(commandDispatcher, unitOfWork)
+            IComandaQuery comandaQuery,
+            IHubContext<FavoDeMelHub> hub) : base(commandDispatcher, unitOfWork)
         {
             _comandaQuery = comandaQuery;
+            _hub = hub;
         }
 
         /// <summary>
@@ -36,6 +41,8 @@ namespace FavoDeMel.Web.Api.Controllers
             await CommandDispatcher.HandleAsync(command);
 
             await UnitOfWork.CommitAsync();
+
+            _hub.Clients.All.SendAsync("ComandaAberta");
 
             return Ok();
         }

@@ -16,14 +16,19 @@ namespace FavoDeMel.Queries
 		private const string ConsultaSimples = @"SELECT 
 												[C].[Id], 
 												[C].[Numero],
-												ROW_NUMBER() OVER(ORDER BY [C].[Numero]) AS [RowNum]
-											  FROM [dbo].[Comanda] AS C";
+												[C].[SituacaoId],
+												[CS].[Nome] AS [Situacao],
+												ROW_NUMBER() OVER(ORDER BY [C].[Numero]) AS [RowNum]										      
+											  FROM [dbo].[Comanda] AS [C]
+											  INNER JOIN [dbo].[ComandaSituacao] AS [CS] ON [CS].[Id] = [C].[SituacaoId]";
 
 		private string ConsultaComPaginacao = $@";WITH [T] AS 
 													({ConsultaSimples}) 
 												SELECT 	
 													[T].[Id], 
-													[T].[Numero] 
+													[T].[Numero],
+													[T].[SituacaoId],
+													[T].[Situacao]
 												FROM [T]
 												WHERE [T].[RowNum] > (@PageSize * (@PageNumber - 1))
 												AND [T].[RowNum] <= (@PageSize * @PageNumber)
