@@ -16,7 +16,6 @@ export class FavoDeMelApiBaseHttpService {
   }
 
   get(uri?: string, params?: any) {
-    console.log(params);
     return this.http.get(`${this.apiUrl}/${uri ?? ''}`, { params });
   }
 

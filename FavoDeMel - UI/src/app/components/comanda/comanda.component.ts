@@ -1,27 +1,44 @@
-import { Component, OnInit, Injector } from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import * as actions from '../../store/comanda/comanda.actions';
 import * as selectors from '../../store/comanda/comands.selectors';
 import { Observable } from 'rxjs';
+import { FavoDeMelHubService } from 'src/app/services/favoDeMelHub.service';
 
 @Component({
   selector: 'comanda',
   templateUrl: './comanda.component.html',
   styleUrls: ['./comanda.component.scss'],
 })
-export class ComandaComponent implements OnInit {
+export class ComandaComponent implements OnInit, OnDestroy {
 
-    protected store: Store<any>;
-    data$: Observable<any>;
+  protected store: Store<any>;
+  data$: Observable<any>;
 
-    constructor(injector: Injector) {       
-        this.store = injector.get(Store);
-        this.data$ = this.store.select(selectors.selectComanda);
-      }
+  protected favoDeMelHubService: FavoDeMelHubService
 
-    ngOnInit(): void {
-      var params :any = {Pagina:1, Linhas:50}
-        this.store.dispatch(actions.carregarComandas({params} as any));
-    }
+  constructor(
+    injector: Injector,
+    favoDeMelHubService: FavoDeMelHubService) {
+    this.store = injector.get(Store);
+    this.data$ = this.store.select(selectors.selectComanda);
+    this.favoDeMelHubService = favoDeMelHubService;
+  }  
+
+  ngOnInit(): void {   
+    this.loadComandas();
+    this.favoDeMelHubService.startConnection();
+    this.favoDeMelHubService.ComandaAbertaEventListener((data)=>this.loadComandas())
+  }
+
+  ngOnDestroy(): void {
+    this.favoDeMelHubService.disconnect();
+  }
+
+  loadComandas(): void {
+    var params: any = { Pagina: 1, Linhas: 50 }
+    this.store.dispatch(actions.carregarComandas({ params } as any));
+  }
+
 }
