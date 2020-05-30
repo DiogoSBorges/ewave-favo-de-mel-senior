@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/mssql/server
+FROM mcr.microsoft.com/mssql/server:2019-latest
 
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=@FavodeMel_2020
