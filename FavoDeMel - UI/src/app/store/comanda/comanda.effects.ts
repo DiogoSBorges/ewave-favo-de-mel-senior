@@ -16,7 +16,7 @@ export class ComandaEffect {
         private service: ComandaServices
     ) { }
 
-    carregarComandasF$ = createEffect(() => {
+    carregarComandas$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(actions.carregarComandas),
             map((params)=> params),

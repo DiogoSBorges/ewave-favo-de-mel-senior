@@ -1,0 +1,69 @@
+<div class="text-center">
+    <div style="display: -webkit-inline-box;">
+        <h2>Comandas - Cadastro de Pedido</h2>
+        <span *ngIf="(produtos$ | async).isLoading" style="right: 15px; position: absolute;">
+            <span class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+            </span>
+        </span>
+    </div>
+    <hr />
+</div>
+<div *ngIf="produtos$ | async as produtos" class="text-right">
+    <h1>{{produtos.isLoading}}</h1>
+    <button type="button" class="btn btn-dark" [disabled]="produtos.isLoading" (click)="abrirModal()">
+        <i class="fa fa-id-card"></i>
+        Adicionar Produto
+    </button>
+</div>
+
+
+<div class="modal fade modal-timeline" bsModal #modal="bs-modal" aria-labelledby="dialog-static-name" role="dialog"
+    tabindex="-1" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Selecione o Produto</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" [formGroup]="form" [ngClass]="{ 'was-validated': isSubmitted }"
+                    novalidate>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="produto">Produto</label>
+                            <select class="custom-select" id="produto" formControlName="produtoId" required>
+                                <option selected disabled value="">Selecione um produto</option>
+                                <ng-container *ngIf="produtos$ | async as produtos">
+                                    <option *ngFor="let produto of produtos.data" [ngValue]="produto.id">
+                                        {{ produto.nome }}</option>
+                                </ng-container>
+
+                            </select>
+                            <div class="invalid-feedback">
+                                O produto é obrigatorio
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="observacao">Observacao</label>
+                            <input type="text" class="form-control" id="observacao" formControlName="observacao" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" (click)="cancelar()">
+                    <i class="fa fa-id-card"></i>
+                    Cancelar
+                </button>
+
+                <button type="button" (click)="submit()" class="btn btn-success" disableButtonDuringRequest>
+                    <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

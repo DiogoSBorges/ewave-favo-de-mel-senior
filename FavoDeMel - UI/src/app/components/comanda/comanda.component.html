@@ -1,10 +1,11 @@
 <div class="text-center">
-    <h2>Comandas</h2>
-
-    <div *ngIf="data$ | async as comandas">
-        <div *ngIf="comandas.isLoading" class="spinner-border text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
+    <div style="display: -webkit-inline-box;">
+        <h2>Comandas</h2>
+        <span *ngIf="data$ | async as comandas" style="right: 15px; position: absolute;">
+            <span *ngIf="comandas.isLoading" class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+            </span>
+        </span> 
     </div>
     <hr />
 </div>
@@ -18,7 +19,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-4" *ngFor="let comanda of comandas.data;" style='padding-bottom: 10px;'>
+        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let comanda of comandas.data;" style='padding-bottom: 10px;'>
             <div class="card" style="width: 18rem;">
                 <div class="card-body text-center"
                     [ngClass]="{'desocupado': comanda.situacaoId ==  1, 'ocupado': comanda.situacaoId ==  2}">

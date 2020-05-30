@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as actions from '../../store/comanda/comanda.actions';
-import * as selectors from '../../store/comanda/comands.selectors';
+import * as selectors from '../../store/comanda/comanda.selectors';
 import { Observable } from 'rxjs';
 import { FavoDeMelHubService } from 'src/app/services/favoDeMelHub.service';
 
@@ -13,10 +13,10 @@ import { FavoDeMelHubService } from 'src/app/services/favoDeMelHub.service';
 })
 export class ComandaComponent implements OnInit, OnDestroy {
 
-  protected store: Store<any>;
-  data$: Observable<any>;
+  private store: Store<any>;
+  private favoDeMelHubService: FavoDeMelHubService
 
-  protected favoDeMelHubService: FavoDeMelHubService
+  data$: Observable<any>;
 
   constructor(
     injector: Injector,
