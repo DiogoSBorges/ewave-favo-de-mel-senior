@@ -6,14 +6,14 @@ import { catchError, mergeMap, map, } from 'rxjs/operators';
 
 import * as actions from './comanda.actions';
 
-import {ComandaServices} from '../../services/comanda.service'
+import {ComandaService} from '../../services/comanda.service'
 
 @Injectable()
 export class ComandaEffect {
 
     constructor(
         private actions$: Actions,
-        private service: ComandaServices
+        private service: ComandaService
     ) { }
 
     carregarComandas$ = createEffect(() => {
@@ -25,6 +25,18 @@ export class ComandaEffect {
                 return actions.carregarComandasSuccess(res);
             } ),
             catchError((error) => of(actions.carregarComandasError(error)))
+        )
+    });
+
+    carregarComandaDetalhada$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(actions.carregarDetalheComanda),
+            map((params)=> params),
+            mergeMap(({id}) => this.service.obterComandaDetalhada(id)),
+            map((res) => {
+                return actions.carregarDetalheComandaSuccess(res);
+            } ),
+            catchError((error) => of(actions.carregarDetalheComandaError(error)))
         )
     });
 

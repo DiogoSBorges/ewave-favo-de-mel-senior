@@ -1,0 +1,70 @@
+<div class="text-center">
+    <div style="display: -webkit-inline-box;">
+        <h2>Comandas</h2>
+        <span *ngIf="data$ | async as comandas" style="right: 15px; position: absolute;">
+            <span *ngIf="comandas.isLoading" class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+            </span>
+        </span>
+    </div>
+    <hr />
+</div>
+
+<div *ngIf="data$ | async as comandas">
+    <h1>{{ comandas.errorMessage }}</h1>
+
+    <div>
+        <h6 class='desocupado'>&nbsp;&nbsp;Aberta</h6>
+        <h6 class='ocupado'>&nbsp;&nbsp;Fechada</h6>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let comanda of comandas.data;" style='padding-bottom: 10px;'>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body text-center"
+                    [ngClass]="{'desocupado': comanda.situacaoId ==  1, 'ocupado': comanda.situacaoId ==  2}">
+                    <h5 class="card-title">{{comanda.numero}}</h5>
+                    <p class="card-text">{{comanda.situacao}}</p>
+                    <button *ngIf="comanda.situacaoId == 2" class="btn btn-dark" (click)="abrirModalItem(comanda.id, comanda.numero)">Abrir</button>
+                    <br />
+                    <br />
+                    <a *ngIf="comanda.situacaoId == 1" routerLink="/comandas/{{comanda.id}}/cadastrar-pedido"
+                        class="btn btn-dark">Fazer Pedido</a>
+                    <br />
+                    <br />
+                    <a *ngIf="comanda.situacaoId == 1" routerLink="/comandas/{{comanda.id}}/detalhe"
+                        class="btn btn-dark">Detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade modal-timeline" bsModal #modal="bs-modal" aria-labelledby="dialog-static-name" role="dialog"
+    tabindex="-1" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Abrir Comanda</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModalItem()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja abrir comanda de número <b>{{comandaModalNumero}}</b> ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" (click)="fecharModalItem()">
+                    <i class="fa fa-ban"></i>
+                    Cancelar
+                </button>
+
+                <button type="button" (click)="submitModalItem()" class="btn btn-success" disableButtonDuringRequest>
+                    <i class="fa fa-check"></i>
+                    Abrir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

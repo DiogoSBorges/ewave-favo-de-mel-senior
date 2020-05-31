@@ -139,7 +139,7 @@ export class ComandaCadastrarPedidoComponent {
                 data => {
                     this.appTastrService.showSuccessMessage('Pedido', "Pedido criado com sucesso");
                     this.blockUI.stop();
-                    this.router.navigate(['/comandas']);
+                    this.router.navigate([`/comandas/${this.comandaId}/detalhe`]);
                 },
                 error => {
                     this.appTastrService.showErrorMessage('Pedido', error.error);
