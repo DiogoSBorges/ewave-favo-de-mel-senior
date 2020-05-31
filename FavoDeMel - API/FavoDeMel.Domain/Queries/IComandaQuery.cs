@@ -8,5 +8,6 @@ namespace FavoDeMel.Domain.Queries
     public interface IComandaQuery
     {
         Task<IEnumerable<ComandaView>> ObterTodasAsync(PaginacaoInfo paginacao);
+        Task<ComandaDetalhadaView> ObterComandaDetalhadaPorAsync(int id);
     }
 }

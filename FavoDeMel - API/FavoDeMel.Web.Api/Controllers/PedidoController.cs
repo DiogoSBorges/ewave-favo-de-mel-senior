@@ -1,9 +1,11 @@
 ﻿using FavoDeMel.Api.Controllers;
+using FavoDeMel.Api.Hubs;
 using FavoDeMel.Commands;
 using FavoDeMel.Commands.Pedido;
 using FavoDeMel.Domain.Dto;
 using FavoDeMel.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
 namespace FavoDeMel.Web.Api.Controllers
@@ -13,8 +15,13 @@ namespace FavoDeMel.Web.Api.Controllers
     [ApiController]
     public class PedidoController : BaseController
     {
-        public PedidoController(ICommandDispatcher commandDispatcher, IUnitOfWork unitOfWork) : base(commandDispatcher, unitOfWork)
+        private IHubContext<FavoDeMelHub> _hub;
+        public PedidoController(
+            ICommandDispatcher commandDispatcher, 
+            IUnitOfWork unitOfWork,
+            IHubContext<FavoDeMelHub> hub) : base(commandDispatcher, unitOfWork)
         {
+            _hub = hub;
         }
 
         /// <summary>
@@ -27,9 +34,8 @@ namespace FavoDeMel.Web.Api.Controllers
             await CommandDispatcher.HandleAsync(command);
 
             await UnitOfWork.CommitAsync();
-
+            _hub.Clients.All.SendAsync("PedidoCriado");
             return Ok();
         }
-
     }
 }

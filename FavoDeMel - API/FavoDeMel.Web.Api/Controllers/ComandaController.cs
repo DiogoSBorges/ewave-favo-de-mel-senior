@@ -59,5 +59,18 @@ namespace FavoDeMel.Web.Api.Controllers
 
             return Ok(comandas);
         }
+
+        /// <summary>
+        /// Obtem dados detalhados de comanda;
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id:int}/detalhada")]
+        public async Task<IActionResult> ObterComandaDetalhadaAsync(int id)
+        {
+            var comanda = await _comandaQuery.ObterComandaDetalhadaPorAsync(id);
+
+            return Ok(comanda);
+        }
     }
 }
