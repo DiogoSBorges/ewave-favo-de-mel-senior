@@ -7,5 +7,6 @@ namespace FavoDeMel.Domain.Queries
     public interface IPedidoQuery
     {
         Task<IEnumerable<PedidoItemDetalhadoView>> ObterPedidoItensPorAsync(int pedidoId);
+        Task<PedidoItemProducaoView> ObterPedidoItenProducaoAsync();
     }
 }
