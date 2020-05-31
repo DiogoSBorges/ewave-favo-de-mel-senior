@@ -26,6 +26,8 @@
                     <h5 class="card-title">{{comanda.numero}}</h5>
                     <p class="card-text">{{comanda.situacao}}</p>
                     <a href="#" class="btn btn-primary">{{comanda.situacaoId ==  1 ? 'Fechar': 'Abrir'}}</a>
+
+                    <a *ngIf="comanda.situacaoId == 1"  routerLink="/comandas/{{comanda.id}}/cadastrar-pedido" class="btn btn-primary">Fazer Pedido</a>
                 </div>
             </div>
         </div>

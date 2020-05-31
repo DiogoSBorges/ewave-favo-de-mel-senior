@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
 })
-export class SideNavComponent {}
+export class SideNavComponent {  }

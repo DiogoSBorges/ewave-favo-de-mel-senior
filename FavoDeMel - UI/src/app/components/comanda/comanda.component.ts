@@ -18,18 +18,20 @@ export class ComandaComponent implements OnInit, OnDestroy {
 
   data$: Observable<any>;
 
+
+
   constructor(
     injector: Injector,
     favoDeMelHubService: FavoDeMelHubService) {
     this.store = injector.get(Store);
     this.data$ = this.store.select(selectors.selectComanda);
     this.favoDeMelHubService = favoDeMelHubService;
-  }  
+  }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.loadComandas();
     this.favoDeMelHubService.startConnection();
-    this.favoDeMelHubService.ComandaAbertaEventListener((data)=>this.loadComandas())
+    this.favoDeMelHubService.ComandaAbertaEventListener((data) => this.loadComandas())
   }
 
   ngOnDestroy(): void {

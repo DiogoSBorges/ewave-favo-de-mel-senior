@@ -9,14 +9,54 @@
     </div>
     <hr />
 </div>
+
+<div class="text-center">
+    <h4>Comanda: {{comandaNumero}}</h4>
+</div>
+
+
 <div *ngIf="produtos$ | async as produtos" class="text-right">
-    <h1>{{produtos.isLoading}}</h1>
-    <button type="button" class="btn btn-dark" [disabled]="produtos.isLoading" (click)="abrirModal()">
-        <i class="fa fa-id-card"></i>
+    <button type="button" class="btn btn-dark" [disabled]="produtos.isLoading" (click)="abrirModalItem()">
+        <i class="fa fa-plus-circle"></i>
         Adicionar Produto
     </button>
 </div>
-
+<br />
+<div *ngIf="itensDePedido.length > 0">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Observacao</th>
+                <th scope="col">Valor</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itensDePedido">
+                <td>{{item.nome}}</td>
+                <td>{{item.observacao}}</td>
+                <td>{{item.valor}}</td>
+                <td>ACT</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-right">
+        <h5><b>Total: R$ {{getTotal()}}</b></h5>
+    </div>
+    <div class="col-md-12">
+        <label for="observacao_pedido">Observacao</label>
+        <input type="text" class="form-control" id="observacao_pedido"
+            [(ngModel)]="observacao_pedido" />
+    </div>
+    <br/>
+    <div class="text-right">
+        <button type="button" class="btn btn-dark" (click)="salvarPedido()">
+            <i class="fa fa-plus-circle"></i>
+            Finalizar Pedido
+        </button>
+    </div>
+</div>
 
 <div class="modal fade modal-timeline" bsModal #modal="bs-modal" aria-labelledby="dialog-static-name" role="dialog"
     tabindex="-1" [config]="{ backdrop: 'static' }">
@@ -24,7 +64,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title pull-left">Selecione o Produto</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModal()">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModalItem()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -54,14 +94,14 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark" (click)="cancelar()">
+                <button type="button" class="btn btn-dark" (click)="fecharModalItem()">
                     <i class="fa fa-id-card"></i>
                     Cancelar
                 </button>
 
-                <button type="button" (click)="submit()" class="btn btn-success" disableButtonDuringRequest>
-                    <i class="fa fa-save"></i>
-                    Salvar
+                <button type="button" (click)="submitModalItem()" class="btn btn-success" disableButtonDuringRequest>
+                    <i class="fa fa-plus-circle"></i>
+                    Adicionar
                 </button>
             </div>
         </div>
