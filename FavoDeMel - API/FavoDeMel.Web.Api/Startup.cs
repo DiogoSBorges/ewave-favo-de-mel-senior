@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using System;
 using System.IO;
 using System.Reflection;
@@ -51,7 +52,7 @@ namespace FavoDeMel.Api
 
             services.AddSignalR();
             services.AddOptions();
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options => options.EnableEndpointRouting = false).AddNewtonsoftJson();
 
             services.Configure<DBProvider>(dbProvider => dbProvider.FavoDeMel = Configuration.GetConnectionString("FavoDeMel"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();

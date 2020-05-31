@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FavoDeMel.Web.Api.Controllers
 {
 
-    [Route("api/comanda")]
+    [Route("api/pedido")]
     [ApiController]
     public class PedidoController : BaseController
     {
@@ -20,7 +20,7 @@ namespace FavoDeMel.Web.Api.Controllers
         /// <summary>
         /// Criar um pedido com com itens á comanda
         /// </summary>
-        [HttpPut("criar")]
+        [HttpPost("criar")]
         public async Task<IActionResult> CriarAsync([FromBody] PedidoDto dto)
         {
             var command = new CriarPedidoCommand(dto.ComandaId, dto.Observacao, dto.Itens);
