@@ -68,7 +68,7 @@ namespace FavoDeMel.Web.Api.Controllers
             await CommandDispatcher.HandleAsync(command);
 
             await UnitOfWork.CommitAsync();
-            _hub.Clients.All.SendAsync("PedodItemProducaoIniciada");
+            _hub.Clients.All.SendAsync("PedidoItemProducaoIniciada");
 
             return Ok();
         }
@@ -86,7 +86,7 @@ namespace FavoDeMel.Web.Api.Controllers
             await CommandDispatcher.HandleAsync(command);
 
             await UnitOfWork.CommitAsync();
-            _hub.Clients.All.SendAsync("PedodItemProducaoFinalizada");
+            _hub.Clients.All.SendAsync("PedidoItemProducaoFinalizada");
 
             return Ok();
         }
@@ -105,6 +105,24 @@ namespace FavoDeMel.Web.Api.Controllers
 
             await UnitOfWork.CommitAsync();
             _hub.Clients.All.SendAsync("PedidoItemCancelado");
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Entrega um item de pedido
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pedidoItemId"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}/item/{pedidoItemId:int}/entregar")]
+        public async Task<IActionResult> EntregarItemAsync(int id, int pedidoItemId)
+        {
+            var command = new EntregarPedidoItemCommand(id, pedidoItemId);
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
+            _hub.Clients.All.SendAsync("PedidoItemEntregue");
 
             return Ok();
         }

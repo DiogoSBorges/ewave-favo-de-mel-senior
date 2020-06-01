@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { FavoDeMelHubService } from 'src/app/services/favoDeMelHub.service';
 
 import { ActivatedRoute } from '@angular/router';
-import { comandaReducer } from 'src/app/store/comanda/comanda.reducer';
 import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { PedidoService } from 'src/app/services/pedido.service';
@@ -27,8 +26,13 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
   private store: Store<any>;
   private favoDeMelHubService: FavoDeMelHubService;
   private activatedRoute: ActivatedRoute;
-  private pedidoService : PedidoService;
+  private pedidoService: PedidoService;
   private appToastrService: AppToastrService;
+
+  readonly ACAO_CANCELAR: number = 1;
+  readonly ACAO_ENTREGAR: number = 2;
+
+  modalAcao: number;
 
   data$: Observable<any>;
 
@@ -43,7 +47,7 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     injector: Injector,
     activatedRoute: ActivatedRoute,
     favoDeMelHubService: FavoDeMelHubService,
-    pedidoService : PedidoService,
+    pedidoService: PedidoService,
     appToastrService: AppToastrService) {
     this.activatedRoute = activatedRoute;
     this.store = injector.get(Store);
@@ -60,6 +64,7 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     this.favoDeMelHubService.PedidoItemProducaoIniciadaEventListener((data) => this.loadComanda());
     this.favoDeMelHubService.PedidoItemProducaoFinalizadaEventListener((data) => this.loadComanda());
     this.favoDeMelHubService.PedidoItemCanceladoEventListener((data) => this.loadComanda());
+    this.favoDeMelHubService.PedidoItemEntregueEventListener((data) => this.loadComanda());
     this.loadValores();
   }
 
@@ -89,14 +94,26 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
   showBtnCancelar(pedidoItem) {
     if (!pedidoItem.producaoPrioridade && pedidoItem.situacaoId == 3) {
       return true
-    }else if(pedidoItem.producaoPrioridade && pedidoItem.situacaoId == 1){
+    } else if (pedidoItem.producaoPrioridade && pedidoItem.situacaoId == 1) {
       return true
     }
 
     return false;
   }
 
-  abrirModal(pedidoId, pedidoItemId, produto) {
+
+  getModalAcaoDescricao() {
+    if (this.modalAcao == this.ACAO_CANCELAR) {
+      return "Cancelar";
+    } else if (this.modalAcao == this.ACAO_ENTREGAR) {
+      return "Entregar";
+    } else {
+      return "";
+    }
+  }
+
+  abrirModal(acao, pedidoId, pedidoItemId, produto) {
+    this.modalAcao = acao;
     this.pedidoId = pedidoId;
     this.pedidoitemId = pedidoItemId;
     this.produto = produto;
@@ -109,12 +126,25 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
 
   submitModal() {
     this.blockUI.start('carregando...');
-
-
-    this.pedidoService.cancelarPedidoItem(this.pedidoId, this.pedidoitemId).pipe()
+    if (this.modalAcao == this.ACAO_CANCELAR) {
+      this.pedidoService.cancelarPedidoItem(this.pedidoId, this.pedidoitemId).pipe()
+        .subscribe(
+          data => {
+            this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item cancelado com sucesso.");
+            this.blockUI.stop();
+            this.fecharModal();
+            this.loadComanda();
+          },
+          error => {
+            this.appToastrService.showErrorMessage('Pedido Item', error.error);
+            this.blockUI.stop();
+          }
+        );
+    } else if (this.modalAcao == this.ACAO_ENTREGAR) {
+      this.pedidoService.entregarPedidoItem(this.pedidoId, this.pedidoitemId).pipe()
       .subscribe(
         data => {
-          this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item cancelado com sucesso.");
+          this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item entregue com sucesso.");
           this.blockUI.stop();
           this.fecharModal();
           this.loadComanda();
@@ -124,5 +154,8 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
           this.blockUI.stop();
         }
       );
+    } else {
+      this.blockUI.stop();
+    }
   }
 }

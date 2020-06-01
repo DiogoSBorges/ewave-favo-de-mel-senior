@@ -37,19 +37,25 @@ export class FavoDeMelHubService {
   }
 
   public PedidoItemProducaoIniciadaEventListener = (callback) => {
-    this.hubConnection.on('PedodItemProducaoIniciada', (data) => {
+    this.hubConnection.on('PedidoItemProducaoIniciada', (data) => {
       callback(data);
     });
   }
 
   public PedidoItemProducaoFinalizadaEventListener = (callback) => {
-    this.hubConnection.on('PedodItemProducaoFinalizada', (data) => {
+    this.hubConnection.on('PedidoItemProducaoFinalizada', (data) => {
       callback(data);
     });
   }
 
   public PedidoItemCanceladoEventListener = (callback) => {
     this.hubConnection.on('PedidoItemCancelado', (data) => {
+      callback(data);
+    });
+  }
+
+  public PedidoItemEntregueEventListener = (callback) => {
+    this.hubConnection.on('PedidoItemEntregue', (data) => {
       callback(data);
     });
   }

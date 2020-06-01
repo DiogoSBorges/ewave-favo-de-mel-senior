@@ -29,4 +29,9 @@
     {
         public PedidoItemSituacaoInvalidaAoCancelarException() : base("A situação do item é inválida para cancelar o mesmo.") { }
     }
+
+    public class PedidoItemSituacaoInvalidaAoEntregarException : AppException
+    {
+        public PedidoItemSituacaoInvalidaAoEntregarException() : base("A situação do item é inválida para entregar o mesmo.") { }
+    }
 }

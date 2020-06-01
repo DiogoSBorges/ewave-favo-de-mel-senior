@@ -30,7 +30,7 @@
                 <ng-container *ngFor="let pedido of comandaDetalhada.comanda.pedidos">
                     <div class="card" [ngClass]="pedido.situacaoId == 3 ? 'cancelado' : ''">
                         <div class="card-body">
-                            <h6 class="card-title">Data: {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}} |
+                            <h6 class="card-title">N°: {{pedido.id}} | Data: {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}} |
                                 Situação: {{pedido.situacao}}
                             </h6>
                             <table class="table table-bordered table-striped">
@@ -51,9 +51,16 @@
                                         <td>{{item.valor}}</td>
                                         <td>{{item.situacao}}</td>
                                         <td class='text-center'>
-                                            <button *ngIf="showBtnCancelar(item)" class="btn btn-dark" title="Cancelar Item do Pedido"
-                                                (click)="abrirModal(pedido.id, item.id, item.produto)">
+                                            <button *ngIf="showBtnCancelar(item)" class="btn btn-dark"
+                                                title="Cancelar Item do Pedido"
+                                                (click)="abrirModal(ACAO_CANCELAR, pedido.id, item.id, item.produto)">
                                                 <i class="fa fa-ban"></i>
+                                            </button>
+                                            &nbsp;
+                                            <button *ngIf="item.situacaoId == 3" class="btn btn-dark"
+                                                title="Entregar Item do Pedido"
+                                                (click)="abrirModal(ACAO_ENTREGAR, pedido.id, item.id, item.produto)">
+                                                <i class="fa fa-share-square"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -79,13 +86,16 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title pull-left">Cancelar Item de Pedido</h4>
+                <h4 class="modal-title pull-left">{{getModalAcaoDescricao()}} Item de Pedido</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Tem certeza que deseja cancelar o item <b>{{produto}}</b> de pedido ?</p>
+                <p>Tem certeza que deseja {{getModalAcaoDescricao()}} o item <b>{{produto}}</b> do
+                    pedido
+                    <b>{{pedidoId}}</b> ?
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" (click)="fecharModal()">
@@ -94,7 +104,7 @@
                 </button>
                 <button type="button" (click)="submitModal()" class="btn btn-success" disableButtonDuringRequest>
                     <i class="fa fa-check"></i>
-                    Confirmar
+                    {{getModalAcaoDescricao()}}
                 </button>
             </div>
         </div>

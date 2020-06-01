@@ -45,6 +45,14 @@ namespace FavoDeMel.Commands.Pedido
             {
                 pedido.SituacaoId = (int)EPedidoSituacao.Cancelado;
             }
+            else
+            {
+                var possuiApenasItensNaoEntregues = pedido.Itens.Any(x => x.SituacaoId != (int)EPedidoItemSituacao.Cancelado && x.SituacaoId != (int)EPedidoItemSituacao.Entregue);
+                if (!possuiApenasItensNaoEntregues)
+                {
+                    pedido.SituacaoId = (int)EPedidoSituacao.Entregue;
+                }
+            }
         }
     }
 }
