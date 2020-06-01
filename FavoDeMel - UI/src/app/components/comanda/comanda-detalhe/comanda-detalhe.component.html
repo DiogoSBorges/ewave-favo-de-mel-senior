@@ -28,7 +28,7 @@
             <h5 class="card-title"><b>Pedidos</b></h5>
             <div *ngIf="comandaDetalhada.comanda && comandaDetalhada.comanda.pedidos.length > 0">
                 <ng-container *ngFor="let pedido of comandaDetalhada.comanda.pedidos">
-                    <div class="card">
+                    <div class="card" [ngClass]="pedido.situacaoId == 3 ? 'cancelado' : ''">
                         <div class="card-body">
                             <h6 class="card-title">Data: {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}} |
                                 Situação: {{pedido.situacao}}
@@ -44,23 +44,58 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of pedido.itens">
+                                    <tr *ngFor="let item of pedido.itens"
+                                        [ngClass]="item.situacaoId == 5 ? 'cancelado' : ''">
                                         <td>{{item.produto}}</td>
                                         <td>{{item.observacao}}</td>
                                         <td>{{item.valor}}</td>
                                         <td>{{item.situacao}}</td>
-                                        <td></td>
+                                        <td class='text-center'>
+                                            <button *ngIf="showBtnCancelar(item)" class="btn btn-dark" title="Cancelar Item do Pedido"
+                                                (click)="abrirModal(pedido.id, item.id, item.produto)">
+                                                <i class="fa fa-ban"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                 </ng-container>
                 <br />
                 <div class="text-right">
-                    <h5><b>Total: R$ {{getTotal()}}</b></h5>
+                    <h6>SubTotal: R$ {{total + desconto}}</h6>
+                    <h6>Desconto: R$ {{desconto}}</h6>
+                    <h5><b>Total: R$ {{total}}</b></h5>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-timeline" bsModal #modal="bs-modal" aria-labelledby="dialog-static-name" role="dialog"
+    tabindex="-1" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Cancelar Item de Pedido</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja cancelar o item <b>{{produto}}</b> de pedido ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" (click)="fecharModal()">
+                    <i class="fa fa-ban"></i>
+                    Cancelar
+                </button>
+                <button type="button" (click)="submitModal()" class="btn btn-success" disableButtonDuringRequest>
+                    <i class="fa fa-check"></i>
+                    Confirmar
+                </button>
             </div>
         </div>
     </div>
