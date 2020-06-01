@@ -1,0 +1,26 @@
+   
+.produto-prioridade-urgente {
+    box-shadow: inset 5px 0 0 rgba(248, 3, 3, 0.7);
+}
+.produto-prioridade-alta {
+    box-shadow: inset 5px 0 0 rgba(236, 222, 18, 0.7);
+}  
+.produto-prioridade-normal {
+    box-shadow: inset 5px 0 0 rgba(100, 100, 100, 0.7);
+}  
+
+.producao-group {
+    .producao-row {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .producao-item {
+        display: inline-block;
+        float: none;
+        padding: 10px;
+
+        .card-body {
+            white-space: normal;
+        }
+    }
+} 

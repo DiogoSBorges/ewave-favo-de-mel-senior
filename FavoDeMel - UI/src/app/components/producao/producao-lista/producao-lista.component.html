@@ -1,0 +1,104 @@
+<div class="text-center">
+    <div style="display: -webkit-inline-box;">
+        <h2>Producao</h2>
+        <span *ngIf="data$ | async as producao" style="right: 15px; position: absolute;">
+            <span *ngIf="producao.isLoading" class="spinner-border text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+            </span>
+        </span>
+    </div>
+    <hr />
+</div>
+
+<div *ngIf="data$ | async as producao">
+    <h1>{{ producao.errorMessage }}</h1>
+    <div>
+        <h6><b>Prioridades</b></h6>
+        <h6 class='produto-prioridade-normal'>&nbsp;&nbsp;Normal</h6>
+        <h6 class='produto-prioridade-alta'>&nbsp;&nbsp;Alta</h6>
+        <h6 class='produto-prioridade-urgente'>&nbsp;&nbsp;Urgente</h6>
+    </div>
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><b>Aguardando Produção</b></h5>
+            <div class="producao-group">
+                <div *ngIf="producao.data" class="producao-row">
+                    <div class="producao-item"
+                        *ngFor="let itemAguardandoProducao of producao.data.itensAguardandoProducao;"
+                        style='padding-bottom: 10px;'>
+                        <div class="card" style="width: 18rem;">
+                            <div
+                                class="card-body text-center  {{obterClasseDePrioridade(itemAguardandoProducao.producaoPrioridadeId)}}">
+                                <h5 class="card-title">{{itemAguardandoProducao.produto}}</h5>
+                                <div class="card-text">
+                                    <h6>Pedido: {{itemAguardandoProducao.pedidoId}}</h6>
+                                    <h6>{{itemAguardandoProducao.situacao}}</h6>
+                                </div>
+                                <button class="btn btn-dark"
+                                    (click)="abrirModal(1, itemAguardandoProducao.pedidoId, itemAguardandoProducao.pedidoItemId, itemAguardandoProducao.produto)">Iniciar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><b>Em Produção</b></h5>
+            <div class="producao-group">
+                <div *ngIf="producao.data" class="producao-row">
+                    <div class="producao-item" *ngFor="let itemEmProducao of producao.data.itensEmProducao;"
+                        style='padding-bottom: 10px;'>
+                        <div class="card" style="width: 18rem;">
+                            <div
+                                class="card-body text-center  {{obterClasseDePrioridade(itemEmProducao.producaoPrioridadeId)}}">
+                                <h5 class="card-title">{{itemEmProducao.produto}}</h5>
+                                <div class="card-text">
+                                    <h6>Pedido: {{itemEmProducao.pedidoId}}</h6>
+                                    <h6>{{itemEmProducao.situacao}}</h6>
+                                </div>
+                                <button class="btn btn-dark"
+                                    (click)="abrirModal(2, itemEmProducao.pedidoId, itemEmProducao.pedidoItemId, itemEmProducao.produto)">Finalizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-timeline" bsModal #modal="bs-modal" aria-labelledby="dialog-static-name" role="dialog"
+    tabindex="-1" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{getModalAcaoDescricao()}} Produção Item de Pedido</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja {{getModalAcaoDescricao()}} produção do item <b>{{modalNomeProduto}}</b> do
+                    pedido
+                    <b>{{pedidoId}}</b> ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" (click)="fecharModal()">
+                    <i class="fa fa-ban"></i>
+                    Cancelar
+                </button>
+
+                <button type="button" (click)="submitModal()" class="btn btn-success" disableButtonDuringRequest>
+                    <i class="fa fa-check"></i>
+                    {{getModalAcaoDescricao()}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

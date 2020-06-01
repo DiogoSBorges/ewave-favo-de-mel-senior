@@ -29,4 +29,22 @@ private readonly apiUrl = environment.favo_de_mel_api_url;
         callback(data);
     });
   }
+
+  public PedidoCriadoEventListener = (callback) => {
+    this.hubConnection.on('PedidoCriado', (data) => {
+        callback(data);
+    });
+  }
+
+  public PedidoItemProducaoIniciadaEventListener = (callback) => {
+    this.hubConnection.on('PedodItemProducaoIniciada', (data) => {
+        callback(data);
+    });
+  }
+
+  public PedidoItemProducaoFinalizadaEventListener = (callback) => {
+    this.hubConnection.on('PedodItemProducaoFinalizada', (data) => {
+        callback(data);
+    });
+  }
 }

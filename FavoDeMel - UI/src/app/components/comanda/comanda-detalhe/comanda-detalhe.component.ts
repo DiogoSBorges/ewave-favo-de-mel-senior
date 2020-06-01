@@ -35,12 +35,14 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadComanda();
-    //this.favoDeMelHubService.startConnection();
-    // this.favoDeMelHubService.ComandaAbertaEventListener((data) => this.loadComandas())
+    this.favoDeMelHubService.startConnection();
+    this.favoDeMelHubService.PedidoCriadoEventListener((data) => this.loadComanda())
+    this.favoDeMelHubService.PedidoItemProducaoIniciadaEventListener((data) => this.loadComanda())
+    this.favoDeMelHubService.PedidoItemProducaoFinalizadaEventListener((data) => this.loadComanda())
   }
 
   ngOnDestroy(): void {
-    // this.favoDeMelHubService.disconnect();
+    this.favoDeMelHubService.disconnect();
   }
 
   loadComanda(): void {

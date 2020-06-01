@@ -9,4 +9,7 @@ import { Injectable, Injector } from '@angular/core';
       super(injector, 'pedido');
     }
     criarPedido = (pedido) => this.post('criar', pedido);
+    obterPedidoItemProducao = () => this.get('pedido-item-producao');
+    iniciarProducaoPedidoItem = (pedidoId:Number, itemPedidoId: Number) => this.put(`${pedidoId}/item/${itemPedidoId}/iniciar-producao`, null);
+    finalizarProducaoPedidoItem = (pedidoId:Number, itemPedidoId: Number) => this.put(`${pedidoId}/item/${itemPedidoId}/finalizar-producao`, null);
 }

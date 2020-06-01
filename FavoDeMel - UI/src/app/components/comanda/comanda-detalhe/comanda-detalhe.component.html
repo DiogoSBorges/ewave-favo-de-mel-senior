@@ -16,42 +16,52 @@
     <div *ngIf="comandaDetalhada.comanda" class="text-center">
         <h5>Comanda: {{comandaDetalhada.comanda.numero}}</h5>
     </div>
-    <br/>
+    <br />
     <div class="text-right">
-        <a *ngIf="comandaDetalhada.comanda && comandaDetalhada.comanda.situacaoId == 1" routerLink="/comandas/{{comandaDetalhada.comanda.id}}/cadastrar-pedido"
-        class="btn btn-dark">Fazer Pedido</a>
+        <a *ngIf="comandaDetalhada.comanda && comandaDetalhada.comanda.situacaoId == 1"
+            routerLink="/comandas/{{comandaDetalhada.comanda.id}}/cadastrar-pedido" class="btn btn-dark">Fazer
+            Pedido</a>
     </div>
-    <br/>
-    <div *ngIf="comandaDetalhada.comanda" >
-        <h5>Pedidos</h5>
-    </div>
-    <div *ngIf="comandaDetalhada.comanda && comandaDetalhada.comanda.pedidos.length > 0">
-        <div *ngFor="let pedido of comandaDetalhada.comanda.pedidos">
-            <h6>Data: {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}}  | Situação: {{pedido.situacao}}</h6>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Peoduto</th>
-                        <th scope="col">Observacao</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Situacao</th>
-                        <th scope="col">#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of pedido.itens">
-                        <td>{{item.produto}}</td>
-                        <td>{{item.observacao}}</td>
-                        <td>{{item.valor}}</td>
-                        <td>{{item.situacao}}</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><b>Pedidos</b></h5>
+            <div *ngIf="comandaDetalhada.comanda && comandaDetalhada.comanda.pedidos.length > 0">
+                <ng-container *ngFor="let pedido of comandaDetalhada.comanda.pedidos">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Data: {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}} |
+                                Situação: {{pedido.situacao}}
+                            </h6>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Peoduto</th>
+                                        <th scope="col">Observacao</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Situacao</th>
+                                        <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of pedido.itens">
+                                        <td>{{item.produto}}</td>
+                                        <td>{{item.observacao}}</td>
+                                        <td>{{item.valor}}</td>
+                                        <td>{{item.situacao}}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                </ng-container>
+                <br />
+                <div class="text-right">
+                    <h5><b>Total: R$ {{getTotal()}}</b></h5>
+                </div>
+            </div>
         </div>
-        
-        <div class="text-right">
-            <h5><b>Total: R$ {{getTotal()}}</b></h5>
-        </div>        
     </div>
 </div>
