@@ -54,5 +54,41 @@ namespace FavoDeMel.Web.Api.Controllers
 
             return Ok(pedidosItensProducao);
         }
+
+       /// <summary>
+       /// Inicia a produção de um item de pedido
+       /// </summary>
+       /// <param name="id"></param>
+       /// <param name="pedidoItemId"></param>
+       /// <returns></returns>
+        [HttpPut("{id:int}/item/{pedidoItemId:int}/iniciar-producao")]
+        public async Task<IActionResult> IniciarProducaoDeItemAsync(int id, int pedidoItemId)
+        {
+            var command = new IniciarProducaoPedidoItemCommand(id, pedidoItemId);
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
+            _hub.Clients.All.SendAsync("PedodItemProducaoIniciada");
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Finaliza a produção de um item de pedido
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pedidoItemId"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}/item/{pedidoItemId:int}/finalizar-producao")]
+        public async Task<IActionResult> FinalizarProducaoDeItemAsync(int id, int pedidoItemId)
+        {
+            var command = new FinalizarProducaoPedidoItemCommand(id,pedidoItemId);
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
+            _hub.Clients.All.SendAsync("PedodItemProducaoFinalizada");
+
+            return Ok();
+        }
     }
 }
