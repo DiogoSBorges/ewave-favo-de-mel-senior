@@ -5,7 +5,7 @@ namespace FavoDeMel.Domain.Queries.Views
     public class PedidoItemProducaoDetalhadoView
     {
         public int PedidoItemId { get; set; }
-        public string Obervacao { get; set; }
+        public string Observacao { get; set; }
         public int SituacaoId { get; set; }
         public string Situacao { get; set; }
         public int ProdutoId { get; set; }

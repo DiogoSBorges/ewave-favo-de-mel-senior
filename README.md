@@ -19,6 +19,11 @@
 - Bootstrap
 - Font-Awesome (V. 4.7)
 
+### Database
+
+- Sql Server
+- Modelagem [aqui](Assets/FavoDeMel.png) 
+
 
 ## Desafio
 O maior desafio aqui foi tentar encontrar alguma arquitetura viável para criar uma solução em realtime até porque foi a minha primeira experiência com esse tipo de tecnologia. Porém por se tratar de um MVP deixei para aprofundar em arquitetura posteriormente, então se puderem observar estou fazendo a emissão de menssagens do WS(SignalR) direto na execução do controller. O outro porém foi que por eu utilizar CQRS e implementar o mesmo, não fiz teste dos CommandsHandler porque seria uma idéia criar um TestFixture no furturo para deixar o código mais diâmica e não apenas instanciar uma classe com um monte de mocks.
