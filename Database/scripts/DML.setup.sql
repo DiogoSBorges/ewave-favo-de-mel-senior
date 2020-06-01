@@ -17,7 +17,8 @@ GO
 
 INSERT INTO [dbo].[PedidoSituacao] ([Id], [Nome]) VALUES
 ( 1, 'Criado'),
-( 2, 'Entregue')
+( 2, 'Entregue'),
+( 3, 'Cancelado')
 GO
 
 INSERT INTO [dbo].[PedidoItemSituacao] ([Id], [Nome]) VALUES

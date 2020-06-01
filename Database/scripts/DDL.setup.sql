@@ -110,12 +110,11 @@ GO
 
 CREATE TABLE [dbo].[PedidoItemProducao] 
 (
-	[Id] INT IDENTITY(1,1) NOT NULL,
+	[PedidoItemId] INT NOT NULl,
 	[DataInicio] DATETIME NULL,
-	[DataFim] DATETIME NULL,
-	[PedidoItemId] INT NOT NULl,	
+	[DataFim] DATETIME NULL,		
 	[PrioridadeId] INT NOT NULL,
-	CONSTRAINT [PK_PedidoItemProducao] PRIMARY KEY ([Id]) ON [PRIMARY],
+	CONSTRAINT [PK_PedidoItemProducao] PRIMARY KEY ([PedidoItemId]) ON [PRIMARY],
 	CONSTRAINT [FK_PedidoItemProducao_PedidoItem] FOREIGN KEY ([PedidoItemId]) REFERENCES [dbo].[PedidoItem]([Id]),
 	CONSTRAINT [FK_PedidoItemProducao_PedidoItemProducaoPrioridade] FOREIGN KEY ([PrioridadeId]) REFERENCES dbo.[PedidoItemProducaoPrioridade]([Id])
 )
