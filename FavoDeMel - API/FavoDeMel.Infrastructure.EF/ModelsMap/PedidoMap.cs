@@ -1,6 +1,7 @@
 ﻿using FavoDeMel.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FavoDeMel.Infrastructure.EF.ModelsMap
 {
@@ -33,13 +34,7 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
             builder.HasOne(x => x.Movimento)
                 .WithOne()
                 .HasPrincipalKey<ComandaMovimento>(x => x.Id)
-                .HasForeignKey<Pedido>(x => x.ComandaMovimentoId);    
-
-            builder.HasMany(x=>x.Itens)
-                .WithOne()
-                .HasPrincipalKey(x => x.Id)
-                .HasForeignKey(x => x.PedidoId);
-
+                .HasForeignKey<Pedido>(x => x.ComandaMovimentoId);
         }
     }
 }

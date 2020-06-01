@@ -8,8 +8,8 @@ import { Injectable, Injector } from '@angular/core';
     constructor(injector: Injector) {
       super(injector, 'comanda');
     }
-
     obterTodos = (param?:any) => this.get(null,param);
     obterComandaDetalhada = (id:Number) => this.get(`${id}/detalhada`);
     abrirComanda = (id:Number) => this.put(`${id}/abrir`, null);
+    fecharComanda = (id:Number) => this.put(`${id}/fechar`, null);
 }

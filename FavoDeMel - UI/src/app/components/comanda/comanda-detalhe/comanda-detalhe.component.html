@@ -19,8 +19,10 @@
     <br />
     <div class="text-right">
         <a *ngIf="comandaDetalhada.comanda && comandaDetalhada.comanda.situacaoId == 1"
-            routerLink="/comandas/{{comandaDetalhada.comanda.id}}/cadastrar-pedido" class="btn btn-dark">Fazer
-            Pedido</a>
+            routerLink="/comandas/{{comandaDetalhada.comanda.id}}/cadastrar-pedido" class="btn btn-dark">
+            <i class="fa fa-check"></i>
+            Fazer Pedido
+        </a>
     </div>
     <br />
     <div class="card">
@@ -91,6 +93,16 @@
             </div>
         </div>
     </div>
+    <br/>
+    <br/>
+    <div class="text-right">
+        <button class="btn btn-dark" title="Fechar Comanda" (click)="abrirModalComanda()">
+            <i class="fa fa fa-money"></i>
+            Fechar Comanda
+        </button>
+    </div>
+    <br/>
+    <br/>
 </div>
 
 <div class="modal fade modal-timeline" bsModal #modal="bs-modal" aria-labelledby="dialog-static-name" role="dialog"
@@ -168,6 +180,35 @@
                     disableButtonDuringRequest>
                     <i class="fa fa-check"></i>
                     Priorizar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-timeline" bsModal #modal_comanda="bs-modal" aria-labelledby="dialog-static-name"
+    role="dialog" tabindex="-1" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg" *ngIf="data$ | async as comandaDetalhada">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Fechar Comanda</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModalComanda()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja fechar a comanda <b>{{comandaDetalhada?.comanda?.numero}}</b> com o valor a
+                    ser pago de <b>R$ {{total}}</b> ? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" (click)="fecharModalComanda()">
+                    <i class="fa fa-ban"></i>
+                    Cancelar
+                </button>
+                <button type="button" (click)="submitModalComanda()" class="btn btn-success" disableButtonDuringRequest>
+                    <i class="fa fa-check"></i>
+                    Fechar
                 </button>
             </div>
         </div>

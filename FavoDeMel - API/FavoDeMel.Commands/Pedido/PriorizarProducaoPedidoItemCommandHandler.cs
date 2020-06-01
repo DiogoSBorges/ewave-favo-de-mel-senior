@@ -29,6 +29,8 @@ namespace FavoDeMel.Commands.Pedido
             if (item.SituacaoId != (int)EPedidoItemSituacao.AgardandoProducao) throw new PedidoItemSituacaoInvalidaAoPriorizarProducaoException();
 
             item.Producao.PrioridadeId = command.PrioridadeId;
+
+            await _pedidoRepository.UpdateAsync(pedido);
         }
     }
 }

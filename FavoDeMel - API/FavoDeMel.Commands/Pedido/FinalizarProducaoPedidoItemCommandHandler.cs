@@ -32,6 +32,8 @@ namespace FavoDeMel.Commands.Pedido
 
             item.SituacaoId = (int)EPedidoItemSituacao.Finalizado;
             item.Producao.DataFim = DateTime.Now;
+
+            await _pedidoRepository.UpdateAsync(pedido);
         }
     }
 }

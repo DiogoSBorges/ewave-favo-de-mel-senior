@@ -34,7 +34,7 @@
                                 <h5 class="card-title">{{itemAguardandoProducao.produto}}</h5>
                                 <div class="card-text">
                                     <h6>Pedido: {{itemAguardandoProducao.pedidoId}}</h6>
-                                    <h6>{{itemAguardandoProducao.situacao}}</h6>
+                                    <h6 *nfIf="itemAguardandoProducao.observacao" >Observação: {{itemAguardandoProducao.observacao}}</h6>
                                 </div>
                                 <button class="btn btn-dark"
                                     (click)="abrirModal(1, itemAguardandoProducao.pedidoId, itemAguardandoProducao.pedidoItemId, itemAguardandoProducao.produto)">Iniciar</button>
@@ -60,7 +60,7 @@
                                 <h5 class="card-title">{{itemEmProducao.produto}}</h5>
                                 <div class="card-text">
                                     <h6>Pedido: {{itemEmProducao.pedidoId}}</h6>
-                                    <h6>{{itemEmProducao.situacao}}</h6>
+                                    <h6 *nfIf="itemEmProducao.observacao" >Observação: {{itemEmProducao.observacao}}</h6>
                                 </div>
                                 <button class="btn btn-dark"
                                     (click)="abrirModal(2, itemEmProducao.pedidoId, itemEmProducao.pedidoItemId, itemEmProducao.produto)">Finalizar</button>

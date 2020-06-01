@@ -44,7 +44,8 @@ export class ComandaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadComandas();
     this.favoDeMelHubService.startConnection();
-    this.favoDeMelHubService.ComandaAbertaEventListener((data) => this.loadComandas())
+    this.favoDeMelHubService.ComandaAbertaEventListener((data) => this.loadComandas());
+    this.favoDeMelHubService.ComandaFechadaEventListener((data) => this.loadComandas());    
   }
 
   ngOnDestroy(): void {

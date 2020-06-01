@@ -47,6 +47,24 @@ namespace FavoDeMel.Web.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Fecha a Comanda
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}/fechar")]
+        public async Task<IActionResult> FecharAsync(int id)
+        {
+            var command = new FecharComandaCommand(id);
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
+
+            _hub.Clients.All.SendAsync("ComandaFechada");
+
+            return Ok();
+        }
+
 
         /// <summary>
         /// Busca todas comandas

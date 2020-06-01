@@ -30,6 +30,12 @@ export class FavoDeMelHubService {
     });
   }
 
+  public ComandaFechadaEventListener = (callback) => {
+    this.hubConnection.on('ComandaFechada', (data) => {
+      callback(data);
+    });
+  }
+
   public PedidoCriadoEventListener = (callback) => {
     this.hubConnection.on('PedidoCriado', (data) => {
       callback(data);

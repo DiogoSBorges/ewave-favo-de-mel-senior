@@ -35,6 +35,8 @@ namespace FavoDeMel.Commands.Pedido
             {
                 pedido.SituacaoId = (int)EPedidoSituacao.Entregue;
             }
+
+            await _pedidoRepository.UpdateAsync(pedido);
         }
     }
 }

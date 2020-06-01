@@ -5,6 +5,7 @@ using FavoDeMel.Domain.Models;
 using FavoDeMel.Domain.Repositories;
 using FavoDeMel.Infrastructure.Extensions;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FavoDeMel.Commands.Comanda
@@ -25,6 +26,9 @@ namespace FavoDeMel.Commands.Comanda
             if (comanda.IsNull()) throw new ComandaNaoEncontradaException();
 
             if (comanda.SituacaoId == (int) EComandaSituacao.Aberta) throw new ComandaJaAbertaException();
+
+            var posssuiMovimentoAberto = comanda.Movimentos.Any(x => x.DataAbertura.IsNotNull() && x.DataFechamento.IsNull());
+            if (posssuiMovimentoAberto) throw new ComandaMovimentoAbertEncontradoException();
 
             comanda.SituacaoId = (int)EComandaSituacao.Aberta;
 

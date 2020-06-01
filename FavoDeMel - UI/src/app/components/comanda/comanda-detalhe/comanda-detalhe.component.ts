@@ -7,12 +7,13 @@ import { Observable } from 'rxjs';
 
 import { FavoDeMelHubService } from 'src/app/services/favoDeMelHub.service';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { AppToastrService } from 'src/app/services/AppToastr.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ComandaService } from 'src/app/services/comanda.service';
 
 @Component({
   selector: 'comanda-detalhe',
@@ -23,14 +24,16 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
 
   @ViewChild('modal') modal: ModalDirective;
   @ViewChild('modal_prioridade') modal_prioridade: ModalDirective;
+  @ViewChild('modal_comanda') modal_comanda: ModalDirective;
   @BlockUI() blockUI: NgBlockUI;
 
   private formBuilder: FormBuilder;
-
+  private router: Router;
   private store: Store<any>;
   private favoDeMelHubService: FavoDeMelHubService;
   private activatedRoute: ActivatedRoute;
   private pedidoService: PedidoService;
+  private comandaService :ComandaService;
   private appToastrService: AppToastrService;
 
   readonly ACAO_CANCELAR: number = 1;
@@ -47,6 +50,7 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
   total: number = 0;
   desconto: number = 0;
 
+  comandaId:number;
   pedidoId: number;
   pedidoitemId: number;
   pedidoitemPrioridadeId: number;
@@ -60,14 +64,18 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     activatedRoute: ActivatedRoute,
     favoDeMelHubService: FavoDeMelHubService,
     pedidoService: PedidoService,
-    appToastrService: AppToastrService) {
+    comandaService :ComandaService,
+    appToastrService: AppToastrService,
+    router: Router) {
     this.activatedRoute = activatedRoute;
     this.formBuilder = injector.get(FormBuilder);
     this.store = injector.get(Store);
     this.data$ = this.store.select(selectors.selectComandaDetalhada);
     this.favoDeMelHubService = favoDeMelHubService;
     this.pedidoService = pedidoService;
+    this.comandaService = comandaService;
     this.appToastrService = appToastrService;
+    this.router = router;
 
     this.criarFormularioPriorizacao()
   }
@@ -90,6 +98,7 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
 
   loadComanda(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
+      this.comandaId = id;
       this.store.dispatch(actions.carregarDetalheComanda({ id }));
     });
   }
@@ -113,9 +122,8 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     } else if (pedidoItem.producaoPrioridade && pedidoItem.situacaoId == 1) {
       return true
     }
-
     return false;
-  }
+  }  
 
   getPriodadeDescricao(prioridadeId) {
     switch (prioridadeId) {
@@ -213,23 +221,47 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
       let formData = this.form_prioridade.getRawValue();
 
       this.pedidoService.priorizarProducaoPedidoItem(this.pedidoId, this.pedidoitemId, formData.prioridadeId).pipe()
+        .subscribe(
+          data => {
+            this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item prioridade alterada com sucesso.");
+            this.blockUI.stop();
+            this.fecharModalPrioridade();
+            this.loadComanda();
+          },
+          error => {
+            this.appToastrService.showErrorMessage('Pedido Item', error.error);
+            this.blockUI.stop();
+          }
+        );
+      
+    } else {
+      this.isSubmitted = true;
+    }
+  }
+
+  abrirModalComanda() {
+    this.modal_comanda.show();
+  }
+
+  fecharModalComanda() {
+    this.modal_comanda.hide();
+  }
+
+  submitModalComanda(){
+    this.blockUI.start('carregando...');
+
+    this.comandaService.fecharComanda(this.comandaId).pipe()
       .subscribe(
         data => {
-          this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item prioridade alterada com sucesso.");
+          this.appToastrService.showSuccessMessage('Comanda', "Comanda fechada com sucesso.");
           this.blockUI.stop();
           this.fecharModal();
-          this.loadComanda();
+          this.router.navigate([`/comandas`]);
         },
         error => {
           this.appToastrService.showErrorMessage('Pedido Item', error.error);
           this.blockUI.stop();
         }
       );
-
-      console.log(formData)
-      this.fecharModalPrioridade();
-    } else {
-      this.isSubmitted = true;
-    }
   }
 }

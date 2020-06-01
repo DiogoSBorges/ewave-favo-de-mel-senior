@@ -19,3 +19,11 @@ services:
         - "9000:80"
       depends_on:
         - db
+
+    ui:
+      image: favo-de-mel-frontend
+      restart: always
+      build: ./FavoDeMel - UI/
+      ports:
+        - "8000:80"
+       
