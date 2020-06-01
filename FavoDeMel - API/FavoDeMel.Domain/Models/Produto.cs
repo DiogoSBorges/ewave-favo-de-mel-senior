@@ -12,5 +12,6 @@ namespace FavoDeMel.Domain.Models
 
         public int TipoId { get; set; }
         public virtual ProdutoTipo Tipo { get; set; }
+        
     }
 }

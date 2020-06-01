@@ -1,6 +1,7 @@
 ﻿using FavoDeMel.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FavoDeMel.Infrastructure.EF.ModelsMap
 {
@@ -42,6 +43,7 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
                .WithOne()
                .HasPrincipalKey<PedidoItemSituacao>(x => x.Id)
                .HasForeignKey<PedidoItem>(x => x.SituacaoId);
+
         }
     }
 }

@@ -25,7 +25,7 @@ namespace FavoDeMel.Commands.Pedido
             var pedido = await _pedidoRepository.GetByAsync(command.Id);
             if (pedido.IsNull()) throw new PedidoNaoEncontradoException();
 
-            var item = pedido.Items.SingleOrDefault(x => x.Id == command.PedidoItemId);
+            var item = pedido.Itens.SingleOrDefault(x => x.Id == command.PedidoItemId);
             if (item.IsNull()) throw new PedidoItemNaoEncontradoException(); 
 
             if(item.SituacaoId != (int)EPedidoItemSituacao.AgardandoProducao) throw new PedidoItemSituacaoInvalidaAoIniciarProducaoException();

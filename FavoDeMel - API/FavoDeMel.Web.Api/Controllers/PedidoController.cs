@@ -90,5 +90,23 @@ namespace FavoDeMel.Web.Api.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Cancela um item de pedido
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pedidoItemId"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}/item/{pedidoItemId:int}/cancelar")]
+        public async Task<IActionResult> CancelarItemAsync(int id, int pedidoItemId)
+        {
+            var command = new CancelarPedidoItemCommand(id, pedidoItemId);
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
+            _hub.Clients.All.SendAsync("PedidoItemCancelado");
+
+            return Ok();
+        }
     }
 }

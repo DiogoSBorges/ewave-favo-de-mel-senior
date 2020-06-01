@@ -11,7 +11,6 @@ namespace FavoDeMel.Domain.Queries.Views
         public int ProdutoId { get; set; }
         public string Produto { get; set; }
         public decimal Valor { get; set; }
-        public int ProducaoId { get; set; }
         public DateTime ProducaoDataInicio { get; set; }
         public int ProducaoPrioridadeId { get; set; }
         public string ProducaoPrioridade { get; set; }

@@ -74,7 +74,7 @@ namespace FavoDeMel.Commands.Pedido
                 Observacao = command.Observacao,
                 Data = DateTime.Now,
                 ComandaMovimentoId = comandaMovimento.Id,
-                Items = itensPedido
+                Itens = itensPedido
             };
 
             await _pedidoRepository.AddAsync(pedido);

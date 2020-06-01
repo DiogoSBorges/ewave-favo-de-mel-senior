@@ -10,11 +10,10 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
         {
             builder.ToTable("PedidoItemProducao");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.PedidoItemId);
 
-            builder.Property(x => x.Id)
-                .HasColumnName("Id")
-                .ValueGeneratedOnAdd();
+            builder.Property(x => x.PedidoItemId)
+                .HasColumnName("PedidoItemId");
 
             builder.Property(x => x.DataInicio)
                 .HasColumnName("DataInicio");
@@ -22,16 +21,12 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
             builder.Property(x => x.DataFim)
                 .HasColumnName("DataFim");
 
-            builder.Property(x => x.PedidoItemId)
-                .HasColumnName("PedidoItemId");
-
             builder.Property(x => x.PrioridadeId)
                 .HasColumnName("PrioridadeId");
 
-            builder.HasOne(x => x.Prioridade)
-               .WithOne()
-               .HasPrincipalKey<PedidoItemProducaoPrioridade>(x => x.Id)
-               .HasForeignKey<PedidoItemProducao>(x => x.PrioridadeId);
+            builder.HasOne(x => x.PedidoItem)
+              .WithOne(x=>x.Producao)
+              .HasForeignKey<PedidoItemProducao>(x => x.PedidoItemId);
         }
     }
 }
