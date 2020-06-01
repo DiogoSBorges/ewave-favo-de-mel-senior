@@ -59,4 +59,10 @@ export class FavoDeMelHubService {
       callback(data);
     });
   }
+
+  public PedidoItemPriorizadoEventListener = (callback) => {
+    this.hubConnection.on('PedidoItemPriorizado', (data) => {
+      callback(data);
+    });
+  }
 }

@@ -12,6 +12,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { AppToastrService } from 'src/app/services/AppToastr.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'comanda-detalhe',
@@ -21,7 +22,10 @@ import { AppToastrService } from 'src/app/services/AppToastr.service';
 export class ComandaDetalheComponent implements OnInit, OnDestroy {
 
   @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal_prioridade') modal_prioridade: ModalDirective;
   @BlockUI() blockUI: NgBlockUI;
+
+  private formBuilder: FormBuilder;
 
   private store: Store<any>;
   private favoDeMelHubService: FavoDeMelHubService;
@@ -32,6 +36,10 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
   readonly ACAO_CANCELAR: number = 1;
   readonly ACAO_ENTREGAR: number = 2;
 
+  readonly PRIORIDADE_NORMAL: number = 1;
+  readonly PRIORIDADE_ALTA: number = 2;
+  readonly PRIORIDADE_URGENTE: number = 3;
+
   modalAcao: number;
 
   data$: Observable<any>;
@@ -41,7 +49,11 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
 
   pedidoId: number;
   pedidoitemId: number;
+  pedidoitemPrioridadeId: number;
   produto: string;
+
+  form_prioridade: FormGroup;
+  isSubmitted: boolean = false;
 
   constructor(
     injector: Injector,
@@ -50,11 +62,14 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     pedidoService: PedidoService,
     appToastrService: AppToastrService) {
     this.activatedRoute = activatedRoute;
+    this.formBuilder = injector.get(FormBuilder);
     this.store = injector.get(Store);
     this.data$ = this.store.select(selectors.selectComandaDetalhada);
     this.favoDeMelHubService = favoDeMelHubService;
     this.pedidoService = pedidoService;
     this.appToastrService = appToastrService;
+
+    this.criarFormularioPriorizacao()
   }
 
   ngOnInit(): void {
@@ -65,6 +80,7 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     this.favoDeMelHubService.PedidoItemProducaoFinalizadaEventListener((data) => this.loadComanda());
     this.favoDeMelHubService.PedidoItemCanceladoEventListener((data) => this.loadComanda());
     this.favoDeMelHubService.PedidoItemEntregueEventListener((data) => this.loadComanda());
+    this.favoDeMelHubService.PedidoItemPriorizadoEventListener((data) => this.loadComanda());
     this.loadValores();
   }
 
@@ -101,6 +117,18 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  getPriodadeDescricao(prioridadeId) {
+    switch (prioridadeId) {
+      case this.PRIORIDADE_NORMAL:
+        return "Normal"
+      case this.PRIORIDADE_ALTA:
+        return "Alta"
+      case this.PRIORIDADE_URGENTE:
+        return "Urgente"
+      default:
+        return '';
+    }
+  }
 
   getModalAcaoDescricao() {
     if (this.modalAcao == this.ACAO_CANCELAR) {
@@ -142,9 +170,52 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
         );
     } else if (this.modalAcao == this.ACAO_ENTREGAR) {
       this.pedidoService.entregarPedidoItem(this.pedidoId, this.pedidoitemId).pipe()
+        .subscribe(
+          data => {
+            this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item entregue com sucesso.");
+            this.blockUI.stop();
+            this.fecharModal();
+            this.loadComanda();
+          },
+          error => {
+            this.appToastrService.showErrorMessage('Pedido Item', error.error);
+            this.blockUI.stop();
+          }
+        );
+    } else {
+      this.blockUI.stop();
+    }
+  }
+
+  criarFormularioPriorizacao() {
+    this.form_prioridade = this.formBuilder.group({
+      prioridadeId: [null, Validators.required],
+    })
+  }
+
+  abrirModalPrioridade(pedidoId, pedidoItemId, prioridadeId, produto) {
+    this.pedidoId = pedidoId;
+    this.pedidoitemId = pedidoItemId;
+    this.pedidoitemPrioridadeId = prioridadeId;
+    this.produto = produto;
+    this.modal_prioridade.show();
+  }
+
+  fecharModalPrioridade() {
+    this.modal_prioridade.hide();
+  }
+
+  submitModalPrioridade() {
+    if (this.form_prioridade.valid) {
+      this.blockUI.start('carregando...');
+      this.isSubmitted = false;
+
+      let formData = this.form_prioridade.getRawValue();
+
+      this.pedidoService.priorizarProducaoPedidoItem(this.pedidoId, this.pedidoitemId, formData.prioridadeId).pipe()
       .subscribe(
         data => {
-          this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item entregue com sucesso.");
+          this.appToastrService.showSuccessMessage('Pedido Item', "Pedido item prioridade alterada com sucesso.");
           this.blockUI.stop();
           this.fecharModal();
           this.loadComanda();
@@ -154,8 +225,11 @@ export class ComandaDetalheComponent implements OnInit, OnDestroy {
           this.blockUI.stop();
         }
       );
+
+      console.log(formData)
+      this.fecharModalPrioridade();
     } else {
-      this.blockUI.stop();
+      this.isSubmitted = true;
     }
   }
 }

@@ -117,8 +117,9 @@ export class ComandaCadastrarPedidoComponent {
 
             this.itensDePedido.push(formData);
             this.fecharModalItem();
-        }
-        this.isSubmitted = true;
+        }else{
+            this.isSubmitted = true;
+        }        
     }
 
     getTotal() {

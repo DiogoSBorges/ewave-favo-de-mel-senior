@@ -55,6 +55,7 @@ export class ProducaoListaComponent implements OnInit, OnDestroy {
     this.favoDeMelHubService.PedidoItemProducaoIniciadaEventListener((data) => this.loadProducao());
     this.favoDeMelHubService.PedidoItemProducaoFinalizadaEventListener((data) => this.loadProducao());
     this.favoDeMelHubService.PedidoItemCanceladoEventListener((data) => this.loadProducao());
+    this.favoDeMelHubService.PedidoItemPriorizadoEventListener((data) => this.loadProducao());
   }
 
   ngOnDestroy(): void {

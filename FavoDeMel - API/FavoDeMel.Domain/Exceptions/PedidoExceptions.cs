@@ -25,6 +25,11 @@
         public PedidoItemSituacaoInvalidaAoFinalizarProducaoException() : base("A situação do item é inválida para finalizar a produção.") { }
     }
 
+    public class PedidoItemSituacaoInvalidaAoPriorizarProducaoException : AppException
+    {
+        public PedidoItemSituacaoInvalidaAoPriorizarProducaoException() : base("A situação do item é inválida para priorizar a produção.") { }
+    }
+
     public class PedidoItemSituacaoInvalidaAoCancelarException : AppException
     {
         public PedidoItemSituacaoInvalidaAoCancelarException() : base("A situação do item é inválida para cancelar o mesmo.") { }

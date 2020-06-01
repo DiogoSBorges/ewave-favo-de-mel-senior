@@ -30,7 +30,8 @@
                 <ng-container *ngFor="let pedido of comandaDetalhada.comanda.pedidos">
                     <div class="card" [ngClass]="pedido.situacaoId == 3 ? 'cancelado' : ''">
                         <div class="card-body">
-                            <h6 class="card-title">N°: {{pedido.id}} | Data: {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}} |
+                            <h6 class="card-title">N°: {{pedido.id}} | Data:
+                                {{pedido.data | date: 'dd/MM/yyyy HH:mm' : 'GMT-8'}} |
                                 Situação: {{pedido.situacao}}
                             </h6>
                             <table class="table table-bordered table-striped">
@@ -49,7 +50,12 @@
                                         <td>{{item.produto}}</td>
                                         <td>{{item.observacao}}</td>
                                         <td>{{item.valor}}</td>
-                                        <td>{{item.situacao}}</td>
+                                        <td>
+                                            {{item.situacao}}
+                                            <ng-container *ngIf="item.situacaoId == 1">
+                                                <p>Prioridade: {{getPriodadeDescricao(item.producaoPrioridadeId)}}</p>
+                                            </ng-container>
+                                        </td>
                                         <td class='text-center'>
                                             <button *ngIf="showBtnCancelar(item)" class="btn btn-dark"
                                                 title="Cancelar Item do Pedido"
@@ -61,6 +67,12 @@
                                                 title="Entregar Item do Pedido"
                                                 (click)="abrirModal(ACAO_ENTREGAR, pedido.id, item.id, item.produto)">
                                                 <i class="fa fa-share-square"></i>
+                                            </button>
+                                            &nbsp;
+                                            <button *ngIf="item.situacaoId == 1" class="btn btn-dark"
+                                                title="Priorizar Produção do Item de Pedido"
+                                                (click)="abrirModalPrioridade(pedido.id, item.id, item.producaoPrioridadeId, item.produto)">
+                                                <i class="fa fa-hourglass-half"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -105,6 +117,57 @@
                 <button type="button" (click)="submitModal()" class="btn btn-success" disableButtonDuringRequest>
                     <i class="fa fa-check"></i>
                     {{getModalAcaoDescricao()}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-timeline" bsModal #modal_prioridade="bs-modal" aria-labelledby="dialog-static-name"
+    role="dialog" tabindex="-1" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Priorizar Item de Pedido</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="fecharModalPrioridade()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Produto: {{produto}}</h5>
+                <h6>Prioridade: {{getPriodadeDescricao(pedidoitemPrioridadeId)}}</h6>
+                <br />
+                <br />
+                <form class="needs-validation" [formGroup]="form_prioridade"
+                    [ngClass]="{ 'was-validated': isSubmitted }" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="prioridadeId">Prioridade</label>
+                            <select class="custom-select" id="prioridadeId" formControlName="prioridadeId" required>
+                                <option selected value="">Selecione uma prioridade</option>
+                                <option *ngIf="pedidoitemPrioridadeId != PRIORIDADE_NORMAL" value="1">Normal</option>
+                                <option *ngIf="pedidoitemPrioridadeId != PRIORIDADE_ALTA" value="2">Alta</option>
+                                <option *ngIf="pedidoitemPrioridadeId != PRIORIDADE_URGENTE" value="3">Urgente</option>
+
+                            </select>
+                            <div class="invalid-feedback">
+                                A prioridade é obrigatoria
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" (click)="fecharModalPrioridade()">
+                    <i class="fa fa-ban"></i>
+                    Cancelar
+                </button>
+                <button type="button" (click)="submitModalPrioridade()" class="btn btn-success"
+                    disableButtonDuringRequest>
+                    <i class="fa fa-check"></i>
+                    Priorizar
                 </button>
             </div>
         </div>

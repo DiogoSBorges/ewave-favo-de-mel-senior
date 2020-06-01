@@ -126,5 +126,24 @@ namespace FavoDeMel.Web.Api.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        ///  Prioriza producao de um item de pedido
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pedidoItemId"></param>
+        /// <param name="prioridade"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}/item/{pedidoItemId:int}/priorizar")]
+        public async Task<IActionResult> PriorizarItemAsync(int id, int pedidoItemId, [FromBody] PriorizarPedidoItemDto prioridade)
+        {
+            var command = new PriorizarProducaoPedidoItemCommand(id, pedidoItemId, prioridade.PrioridadeId);
+            await CommandDispatcher.HandleAsync(command);
+
+            await UnitOfWork.CommitAsync();
+            _hub.Clients.All.SendAsync("PedidoItemPriorizado");
+
+            return Ok();
+        }
     }
 }

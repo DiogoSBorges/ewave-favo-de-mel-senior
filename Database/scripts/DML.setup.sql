@@ -53,7 +53,7 @@ INSERT INTO [dbo].[Produto]([Nome], [Descricao], [TempoPreparo],[Valor], [TipoId
 ('Espaguete à carbonara', null, 30, 25.90 , 3),
 ('Salada Caesar', null, 10, 10 , 4),
 ('Brahma 600ml', null, null, 10.50 , 5),
-('Cozumel Brahma', null, null, 15 , 6),
+('Cozumel Brahma', null, 5, 15 , 6),
 ('Suco de Laranja 1l', null, 5, 15 , 7),
 ('Milkshake de Chocolate 300ml', null, 8, 10 , 8),
 ('Coca KS', null, null, 2.75 , 9),
