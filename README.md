@@ -34,6 +34,7 @@ O maior desafio aqui foi tentar encontrar alguma arquitetura viável para criar 
 
 
 ## Funcionalidades
+Obs: As principais telas da aplicação funcionam em real time. Ou seja, abra várias instancias da tela :)
 
 ###  Abrir/ Fechar Comanda
 É a funcionalidade base da solução sendo que a mesma gera o movimento para para cada vez que é aberta onde posso ter um histórico da comanda.
