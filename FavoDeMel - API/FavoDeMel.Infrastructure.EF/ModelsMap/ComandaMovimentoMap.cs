@@ -29,6 +29,7 @@ namespace FavoDeMel.Infrastructure.EF.ModelsMap
                 .WithMany(x => x.Movimentos)
                 .HasPrincipalKey(x => x.Id)
                 .HasForeignKey(x => x.ComandaId);
+            
         }
     }
 }

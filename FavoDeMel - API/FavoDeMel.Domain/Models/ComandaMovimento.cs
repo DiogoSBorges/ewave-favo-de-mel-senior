@@ -11,6 +11,8 @@ namespace FavoDeMel.Domain.Models
         public DateTime? DataFechamento { get; set; }
 
         public int ComandaId { get; set; }
-        public virtual Comanda Comanda { get; set; }       
+        public virtual Comanda Comanda { get; set; }
+
+        public virtual ICollection<Pedido> Pedidos { get; set; } = new HashSet<Pedido>();
     }
 }
