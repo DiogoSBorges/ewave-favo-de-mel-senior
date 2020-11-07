@@ -69,7 +69,7 @@ Onde você pode criar vários pedidos e cada pedido você pode adicionar vários
 
 # Executar o Projeto
 
-Para executar o projeto, é necessário [docker](https://app.dbdesigner.net/signup  "docker") instalado e rodando na sua máquina com containers base em LINUX e portas 1433, 8000 e 9000 disponíveis.
+Para executar o projeto, é necessário [docker](https://www.docker.com  "docker") instalado e rodando na sua máquina com containers base em LINUX e portas 1433, 8000 e 9000 disponíveis.
 ```
 > git clone https://github.com/DiogoSBorges/ewave-favo-de-mel-senior.git
 > cd ewave-favo-de-mel-senior
